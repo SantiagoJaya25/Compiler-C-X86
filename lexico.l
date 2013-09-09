@@ -6,10 +6,14 @@
 branco [ \t\n]+
 digito [0-9]
 letra [a-zA-Z]
-int -?{digito}+
-float {int}("."{int}){1}
-char [{digito}{letra}]{1}
-variavel {letra}+{digito}*
+int [-+]?{digito}+
+float {int}("."{int})?
+char [{letra}{digito}]
+variavel {letra}+[0-9a-zA-Z]*
+se "if"
+senao "else"
+enquanto "while"
+repeticao "for"
 
 %%
 
@@ -29,6 +33,10 @@ variavel {letra}+{digito}*
 	printf("Isso e uma variavel: %s\n",yytext);
 }
 
+"if" return(SE);
+"else" return(SENAO);
+"while" return(ENQUANTO);
+"for" return(REPETICAO);
 "+" return(SOMA);
 "-" return(SUBTRACAO);
 "*" return(MULTIPLICACAO);
@@ -39,6 +47,10 @@ variavel {letra}+{digito}*
 "==" return(COMPARACAO);
 "&&" return(E);
 "||" return(OU);
+"++" return(INCREMENTO);
+"--" return(DECREMENTO);
+"{" return(CHAVE_ESQUERDA);
+"}" return(CHAVE_DIREITA);
 
 %%
 
