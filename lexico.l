@@ -8,35 +8,25 @@ digito [0-9]
 letra [a-zA-Z]
 int [-+]?{digito}+
 float {int}("."{int})?
-char [{letra}{digito}]
-variavel {letra}+[0-9a-zA-Z]*
-se "if"
-senao "else"
-enquanto "while"
-repeticao "for"
+variavel {letra}+({digito}|{letra})*
 
 %%
 
+{branco} { /* Desconsiderar espaços em branco */ }
 {int} {
 	printf("Isso e um inteiro: %s\n",yytext);
+	return(NUMERO);
 }
 
 {float} {
 	printf("Isso e um float: %s\n",yytext);
+	return(NUMERO);
 }
 
-{char} {
-	printf("Isso e um char: %s\n",yytext);
-}
-
-{variavel} {
-	printf("Isso e uma variavel: %s\n",yytext);
-}
-
-"if" return(SE);
-"else" return(SENAO);
-"while" return(ENQUANTO);
-"for" return(REPETICAO);
+"if" return(IF);
+"else" return(ELSE);
+"while" return(WHILE);
+"for" return(FOR);
 "+" return(SOMA);
 "-" return(SUBTRACAO);
 "*" return(MULTIPLICACAO);
@@ -45,12 +35,22 @@ repeticao "for"
 ")" return(PARENTESES_DIREITA);
 "=" return(RECEBE);
 "==" return(COMPARACAO);
+">=" return(MAIOR_IGUAL);
+"<=" return(MENOR_IGUAL);
+">" return(MAIOR_QUE);
+"<" return(MENOR_QUE);
+"!=" return(DIFERENTE);
 "&&" return(E);
 "||" return(OU);
 "++" return(INCREMENTO);
 "--" return(DECREMENTO);
 "{" return(CHAVE_ESQUERDA);
 "}" return(CHAVE_DIREITA);
+
+{variavel} {
+	printf("Isso e uma variavel: %s\n",yytext);
+	return(VARIAVEL);
+}
 
 %%
 
