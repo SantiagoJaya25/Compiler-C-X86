@@ -23,7 +23,8 @@ if:
 	;
 condicao:
 	VARIAVEL
-	| Expressao
+	| PARENTESES_ESQUERDA condicao PARENTESES_DIREITA
+	| expressao
 	| condicao COMPARACAO condicao
 	| condicao OU condicao
 	| condicao E condicao
@@ -34,15 +35,13 @@ condicao:
 	| condicao MENOR_QUE condicao
 	;
 	
-Expression:
+expressao:
    NUMERO { $$=$1; }
-   | Expression PLUS Expression { $$=$1+$3; }
-   | Expression MINUS Expression { $$=$1-$3; }
-   | Expression TIMES Expression { $$=$1*$3; }
-   | Expression DIVIDE Expression { $$=$1/$3; }
-   | MINUS Expression %prec NEG { $$=-$2; }
-   | Expression POWER Expression { $$=pow($1,$3); }
-   | LEFT_PARENTHESIS Expression RIGHT_PARENTHESIS { $$=$2; }
+   | expressao SOMA expressao { $$=$1+$3; }
+   | expressao SUBTRACAO expressao { $$=$1-$3; }
+   | expressao MULTIPLICACAO expressao { $$=$1*$3; }
+   | expressao DIVISAO expressao { $$=$1/$3; }
+   | PARENTESES_ESQUERDA expressao PARENTESES_DIREITA { $$=$2; }
    ;
 %%
 

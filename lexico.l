@@ -6,7 +6,7 @@
 branco [ \t\n]+
 digito [0-9]
 letra [a-zA-Z]
-int [-+]?{digito}+
+int {digito}+
 float {int}("."{int})?
 variavel {letra}+({digito}|{letra})*
 
