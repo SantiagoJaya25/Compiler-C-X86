@@ -3,12 +3,14 @@
 #include <stdlib.h>
 %}
 
-%token NUMERO VARIAVEL
+%token NUMERO_INTEIRO NUMERO_REAL VARIAVEL
+%token INT FLOAT CHAR
 %token SOMA SUBTRACAO MULTIPLICACAO DIVISAO INCREMENTO DECREMENTO
 %token PARENTESES_ESQUERDA PARENTESES_DIREITA CHAVE_ESQUERDA CHAVE_DIREITA
 %token RECEBE COMPARACAO E OU MAIOR_IGUAL MENOR_IGUAL MAIOR_QUE MENOR_QUE DIFERENTE
 %token IF ELSE
 %token FOR WHILE
+%token PONTOVIRGULA VIRGULA 
 
 %start Entrada
 
@@ -16,11 +18,21 @@
 
 Entrada:
    	/* Empty */
+   	| Entrada CHAVE_ESQUERDA Entrada CHAVE_DIREITA
    	| Entrada if
+   	| Entrada else
+   	| Entrada instrucao
+   	| Entrada declaracao
 	;
 if:
-	IF PARENTESES_ESQUERDA condicao PARENTESES_DIREITA { printf("CMP EAX,EBX\n"); }
+	IF PARENTESES_ESQUERDA condicao PARENTESES_DIREITA { printf("Isso é um if\n"); }
 	;
+
+else:
+	ELSE { printf("Isso é um else\n"); }
+	| ELSE if { printf("Isso é um else if\n"); }
+	;
+	
 condicao:
 	VARIAVEL
 	| PARENTESES_ESQUERDA condicao PARENTESES_DIREITA
@@ -36,13 +48,33 @@ condicao:
 	;
 	
 expressao:
-   NUMERO { $$=$1; }
-   | expressao SOMA expressao { $$=$1+$3; }
-   | expressao SUBTRACAO expressao { $$=$1-$3; }
-   | expressao MULTIPLICACAO expressao { $$=$1*$3; }
-   | expressao DIVISAO expressao { $$=$1/$3; }
-   | PARENTESES_ESQUERDA expressao PARENTESES_DIREITA { $$=$2; }
+   NUMERO_INTEIRO
+   |NUMERO_REAL
+   | VARIAVEL
+   | expressao SOMA expressao
+   | expressao SUBTRACAO expressao
+   | expressao MULTIPLICACAO expressao
+   | expressao DIVISAO expressao
+   | PARENTESES_ESQUERDA expressao PARENTESES_DIREITA
+   | VARIAVEL RECEBE expressao
    ;
+	
+instrucao:
+	PONTOVIRGULA { printf("Isso é uma instrucao\n"); }
+	| expressao PONTOVIRGULA { printf("Isso é uma instrucao\n"); }
+	;
+	
+declaracao:
+	INT variavelDeclarada PONTOVIRGULA { printf("Isso é uma declaracao de inteiro\n"); }
+	| FLOAT variavelDeclarada PONTOVIRGULA { printf("Isso é uma declaracao de float\n"); }
+	| CHAR variavelDeclarada PONTOVIRGULA { printf("Isso é uma declaracao de char\n"); }
+	;
+	
+variavelDeclarada:
+	VARIAVEL
+	| variavelDeclarada VIRGULA	variavelDeclarada
+	;
+
 %%
 
 int yyerror(char *s) {
