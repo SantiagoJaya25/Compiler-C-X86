@@ -5,12 +5,13 @@
 
 %token NUMERO_INTEIRO NUMERO_REAL VARIAVEL
 %token INT FLOAT CHAR
+%token PRINTF
 %token SOMA SUBTRACAO MULTIPLICACAO DIVISAO INCREMENTO DECREMENTO
 %token PARENTESES_ESQUERDA PARENTESES_DIREITA CHAVE_ESQUERDA CHAVE_DIREITA
 %token RECEBE COMPARACAO E OU MAIOR_IGUAL MENOR_IGUAL MAIOR_QUE MENOR_QUE DIFERENTE
 %token IF ELSE
 %token FOR WHILE
-%token PONTOVIRGULA VIRGULA 
+%token PONTOVIRGULA VIRGULA ASPAS
 
 %start Entrada
 
@@ -23,6 +24,7 @@ Entrada:
    	| Entrada else
    	| Entrada instrucao
    	| Entrada declaracao
+   	| Entrada printf
 	;
 if:
 	IF PARENTESES_ESQUERDA condicao PARENTESES_DIREITA { printf("Isso é um if\n"); }
@@ -73,6 +75,10 @@ declaracao:
 variavelDeclarada:
 	VARIAVEL
 	| variavelDeclarada VIRGULA	variavelDeclarada
+	;
+
+printf:
+	PRINTF PARENTESES_ESQUERDA ASPAS ASPAS PARENTESES_DIREITA PONTOVIRGULA { printf("Isso é um printf\n"); }
 	;
 
 %%

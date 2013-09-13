@@ -30,6 +30,7 @@ variavel {letra}+({digito}|{letra})*
 "int" return(INT);
 "float" return(FLOAT);
 "char" return(CHAR);
+"printf" return(PRINTF);
 "+" return(SOMA);
 "-" return(SUBTRACAO);
 "*" return(MULTIPLICACAO);
@@ -51,6 +52,7 @@ variavel {letra}+({digito}|{letra})*
 "}" return(CHAVE_DIREITA);
 ";" return(PONTOVIRGULA);
 "," return(VIRGULA);
+"\"" return(ASPAS);
 
 {variavel} {
 	printf("Isso e uma variavel: %s\n",yytext);
