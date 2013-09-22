@@ -22,6 +22,7 @@ Entrada:
    	| Entrada CHAVE_ESQUERDA Entrada CHAVE_DIREITA
    	| Entrada if
    	| Entrada while
+   	| Entrada for
    	| Entrada instrucao
    	| Entrada declaracao
    	| Entrada printf
@@ -60,6 +61,12 @@ expressao:
    
 while:
 	WHILE PARENTESES_ESQUERDA condicao PARENTESES_DIREITA { printf("Isso é um while\n"); }
+	;
+	
+for:
+	FOR PARENTESES_ESQUERDA PONTOVIRGULA PONTOVIRGULA PARENTESES_DIREITA { printf("Isso é um for\n"); }
+	| FOR PARENTESES_ESQUERDA condicao PONTOVIRGULA condicao PONTOVIRGULA condicao PARENTESES_DIREITA { printf("Isso é um for\n"); }
+	| FOR PARENTESES_ESQUERDA variavelDeclarada PONTOVIRGULA condicao PONTOVIRGULA condicao PARENTESES_DIREITA { printf("Isso é um for\n"); }
 	;
 	
 instrucao:
