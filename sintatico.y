@@ -21,17 +21,14 @@ Entrada:
    	/* Empty */
    	| Entrada CHAVE_ESQUERDA Entrada CHAVE_DIREITA
    	| Entrada if
-   	| Entrada else
+   	| Entrada while
    	| Entrada instrucao
    	| Entrada declaracao
    	| Entrada printf
 	;
 if:
 	IF PARENTESES_ESQUERDA condicao PARENTESES_DIREITA { printf("Isso é um if\n"); }
-	;
-
-else:
-	ELSE { printf("Isso é um else\n"); }
+	| ELSE { printf("Isso é um else\n"); }
 	| ELSE if { printf("Isso é um else if\n"); }
 	;
 	
@@ -60,6 +57,10 @@ expressao:
    | PARENTESES_ESQUERDA expressao PARENTESES_DIREITA
    | VARIAVEL RECEBE expressao
    ;
+   
+while:
+	WHILE PARENTESES_ESQUERDA condicao PARENTESES_DIREITA { printf("Isso é um while\n"); }
+	;
 	
 instrucao:
 	PONTOVIRGULA { printf("Isso é uma instrucao\n"); }
@@ -74,6 +75,7 @@ declaracao:
 	
 variavelDeclarada:
 	VARIAVEL
+	| VARIAVEL RECEBE expressao
 	| variavelDeclarada VIRGULA	variavelDeclarada
 	;
 
