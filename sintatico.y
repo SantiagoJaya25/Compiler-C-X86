@@ -1,6 +1,7 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
+#include "funcoes.h"
 %}
 
 %token NUMERO_INTEIRO NUMERO_REAL VARIAVEL
@@ -28,7 +29,7 @@ Entrada:
    	| Entrada printf
 	;
 if:
-	IF PARENTESES_ESQUERDA condicao PARENTESES_DIREITA { printf("Isso é um if\n"); }
+	IF PARENTESES_ESQUERDA condicao PARENTESES_DIREITA { funcaoIF(); }
 	| ELSE { printf("Isso é um else\n"); }
 	| ELSE if { printf("Isso é um else if\n"); }
 	;
