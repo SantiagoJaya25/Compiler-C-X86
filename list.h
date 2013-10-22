@@ -20,7 +20,7 @@ typedef struct _List
 } List;
 
 extern int inserirElemento(List *list, char *identificador);
-extern void alterarElemento(List *list, ListNode *node);
+int alterarElemento(List *list, char *identificador, void *valorNovo);
 extern ListNode* procuraElemento(List *list, char *identificador);
 extern void printList(List *list);
 

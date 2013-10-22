@@ -41,12 +41,21 @@ int inserirElemento(List *list, char *identificador)
 	return 0;
 }
 
-void alterarElemento(ListNode *node)
+int alterarElemento(List *list, char *identificador, void *valorNovo)
 {
-	if(!node)
-		return;
+	if(!list)
+		return -1;
 
+	ListNode *temp = (ListNode*)malloc(sizeof(ListNode));
 
+	temp = procuraElemento(list, identificador);
+
+	temp->valor = valorNovo;
+
+	temp->preenchido = 1;
+
+	return 0;
+		
 }
 
 ListNode* procuraElemento(List *list, char *identificador)

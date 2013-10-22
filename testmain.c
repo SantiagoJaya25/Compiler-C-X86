@@ -12,6 +12,12 @@ int main(void)
 	inserirElemento(&mylist, "AlexGay");
 	inserirElemento(&mylist, "MarcosPunheteiro");
 
+	alterarElemento(&mylist, "AlexGay", "CarlosBiroba");	
+	ListNode *temp = (ListNode*)malloc(sizeof(ListNode));
+	temp = procuraElemento(&mylist, "AlexGay");
+
+	printf("%s\n", temp->valor);
+
 	printList(&mylist);
 
 	return 0;
