@@ -16,7 +16,7 @@ int main(void)
         ListNode *temp = (ListNode*)malloc(sizeof(ListNode));
         temp = procuraElemento(&mylist, "AlexGay");
 
-        printf("O valor do identificador %s eh %s\n", temp->identificador, temp->valor);
+        printf("O valor do identificador %s eh %s\n", (char*) temp->identificador, (char*) temp->valor);
 
 	printList(&mylist);
 
