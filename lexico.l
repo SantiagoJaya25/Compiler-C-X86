@@ -56,7 +56,7 @@ variavel {letra}+({digito}|{letra})*
 
 {variavel} {
 	printf("Isso e uma variavel: %s\n",yytext);
-	return(VARIAVEL);
+	return(IDENTIFICADOR);
 }
 
 %%
