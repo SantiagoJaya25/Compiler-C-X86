@@ -8,7 +8,7 @@ digito [0-9]
 letra [a-zA-Z]
 int {digito}+
 float {int}("."{int})?
-identificador {letra}+({digito}|{letra})*
+variavel {letra}+({digito}|{letra})*
 
 %%
 
@@ -54,9 +54,9 @@ identificador {letra}+({digito}|{letra})*
 "," return(VIRGULA);
 "\"" return(ASPAS);
 
-{identificador} {
-	printf("Isso e uma identificador: %s\n",yytext);
-	return(IDENTIFICADOR);
+{variavel} {
+	printf("Isso e uma variavel: %s\n",yytext);
+	return(VARIAVEL);
 }
 
 %%

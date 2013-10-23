@@ -4,7 +4,7 @@
 #include "funcoes.h"
 %}
 
-%token NUMERO_INTEIRO NUMERO_REAL IDENTIFICADOR
+%token NUMERO_INTEIRO NUMERO_REAL VARIAVEL
 %token INT FLOAT CHAR
 %token PRINTF
 %token SOMA SUBTRACAO MULTIPLICACAO DIVISAO INCREMENTO DECREMENTO
@@ -35,7 +35,7 @@ if:
 	;
 	
 condicao:
-	IDENTIFICADOR
+	VARIAVEL
 	| PARENTESES_ESQUERDA condicao PARENTESES_DIREITA
 	| expressao
 	| condicao COMPARACAO condicao
@@ -51,13 +51,13 @@ condicao:
 expressao:
    NUMERO_INTEIRO
    |NUMERO_REAL
-   | IDENTIFICADOR
+   | VARIAVEL
    | expressao SOMA expressao
    | expressao SUBTRACAO expressao
    | expressao MULTIPLICACAO expressao
    | expressao DIVISAO expressao
    | PARENTESES_ESQUERDA expressao PARENTESES_DIREITA
-   | IDENTIFICADOR RECEBE expressao
+   | VARIAVEL RECEBE expressao
    ;
    
 while:
@@ -82,8 +82,8 @@ declaracao:
 	;
 	
 variavelDeclarada:
-	IDENTIFICADOR
-	| IDENTIFICADOR RECEBE expressao
+	VARIAVEL
+	| VARIAVEL RECEBE expressao
 	| variavelDeclarada VIRGULA	variavelDeclarada
 	;
 
