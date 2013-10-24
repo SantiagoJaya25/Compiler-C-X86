@@ -1,24 +1,28 @@
 %{
 #include "sintatico.h"
+#include "funcoes.h"
+#include <string.h>
 #include <stdlib.h>
+char token[100];
 %}
 
 branco [ \t\n]+
 digito [0-9]
 letra [a-zA-Z]
-int {digito}+
-float {int}("."{int})?
-variavel {letra}+({digito}|{letra})*
+numeroInteiro {digito}+
+numeroReal {numeroInteiro}("."{numeroInteiro})?
+identificador {letra}+({digito}|{letra})*
+inteiro "int"
 
 %%
 
 {branco} { /* Desconsiderar espaços em branco */ }
-{int} {
+{numeroInteiro} {
 	printf("Isso e um inteiro: %s\n",yytext);
 	return(NUMERO_INTEIRO);
 }
 
-{float} {
+{numeroReal} {
 	printf("Isso e um float: %s\n",yytext);
 	return(NUMERO_REAL);
 }
@@ -27,7 +31,14 @@ variavel {letra}+({digito}|{letra})*
 "else" return(ELSE);
 "while" return(WHILE);
 "for" return(FOR);
-"int" return(INT);
+
+{inteiro} {
+	strcpy(token, yytext);
+	declaracaoVariavel(token);
+
+	return(INT);
+}
+
 "float" return(FLOAT);
 "char" return(CHAR);
 "printf" return(PRINTF);
@@ -54,8 +65,8 @@ variavel {letra}+({digito}|{letra})*
 "," return(VIRGULA);
 "\"" return(ASPAS);
 
-{variavel} {
-	printf("Isso e uma variavel: %s\n",yytext);
+{identificador} {
+	printf("Isso e um identificador: %s\n",yytext);
 	return(IDENTIFICADOR);
 }
 

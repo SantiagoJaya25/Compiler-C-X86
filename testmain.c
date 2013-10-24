@@ -6,15 +6,15 @@ int main(void)
 {
 	List mylist;
 	inicializarLista(&mylist);
-	inserirElemento(&mylist, "AlexGay");
-	inserirElemento(&mylist, "FodaSePerigo");
-	inserirElemento(&mylist, "MarcosPunheteiro");
-	inserirElemento(&mylist, "AlexGay");
-	inserirElemento(&mylist, "MarcosPunheteiro");
+	inserirElemento(&mylist, "Alex");
+	inserirElemento(&mylist, "Jefferson");
+	inserirElemento(&mylist, "Marcos");
+	inserirElemento(&mylist, "Alex");
+	inserirElemento(&mylist, "Marcos");
 
-	alterarElemento(&mylist, "AlexGay", "CarlosBiroba");        
+	alterarElemento(&mylist, "Alex", "Carlos");        
         ListNode *temp = (ListNode*)malloc(sizeof(ListNode));
-        temp = procuraElemento(&mylist, "AlexGay");
+        temp = procuraElemento(&mylist, "Alex");
 
         printf("O valor do identificador %s eh %s\n", (char*) temp->identificador, (char*) temp->valor);
 
