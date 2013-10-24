@@ -7,6 +7,8 @@ declaracaoVariavel(char *token)
 {
 	if(strcmp(token, "int")==0)
 		declaracaoVariavelInteira();
+	else if(strcmp(token, "float")==0)
+		declaracaoVariavelReal();
 }
 
 void declaracaoVariavelInteira()
@@ -14,8 +16,12 @@ void declaracaoVariavelInteira()
 	printf("declaracaoVariavelInteira\n");
 }
 
-void
-funcaoIF()
+void declaracaoVariavelReal()
+{
+	printf("declaracaoVariavelReal\n");
+}
+
+void funcaoIF()
 {
 	printf("CMP condicao\n");
 	printf("JZ if\n");

@@ -13,6 +13,7 @@ numeroInteiro {digito}+
 numeroReal {numeroInteiro}("."{numeroInteiro})?
 identificador {letra}+({digito}|{letra})*
 inteiro "int"
+float "float"
 
 %%
 
@@ -34,12 +35,14 @@ inteiro "int"
 
 {inteiro} {
 	strcpy(token, yytext);
-	declaracaoVariavel(token);
-
 	return(INT);
 }
 
-"float" return(FLOAT);
+{float} {
+	strcpy(token, yytext);
+	return(FLOAT);
+}
+
 "char" return(CHAR);
 "printf" return(PRINTF);
 "+" return(SOMA);
@@ -67,6 +70,8 @@ inteiro "int"
 
 {identificador} {
 	printf("Isso e um identificador: %s\n",yytext);
+	declaracaoVariavel(token);
+	
 	return(IDENTIFICADOR);
 }
 

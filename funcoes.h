@@ -6,6 +6,7 @@
 extern void declaracaoVariavel();
 
 extern void declaracaoVariavelInteira();
+extern void declaracaoVariavelReal();
 
 extern void funcaoIF();
 
