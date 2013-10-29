@@ -70,7 +70,7 @@ float "float"
 
 {identificador} {
 	printf("Isso e um identificador: %s\n",yytext);
-	declaracaoVariavel(token);
+	declaracaoVariavel(token, yytext);
 	
 	return(IDENTIFICADOR);
 }

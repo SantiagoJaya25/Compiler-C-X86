@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "funcoes.h"
+#include "list.h"
+
+extern List list;
 %}
 
 %token NUMERO_INTEIRO NUMERO_REAL IDENTIFICADOR
@@ -98,5 +101,6 @@ int yyerror(char *s) {
 }
 
 int main(void) {
+	inicializarLista(&list);
    	yyparse();
 }

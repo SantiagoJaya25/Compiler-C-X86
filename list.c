@@ -11,13 +11,13 @@ int inicializarLista(List *list)
 	return 0;
 }
 
-int inserirElemento(List *list, char *identificador)
+ListNode *inserirElemento(List *list, char *identificador)
 {
 	if(!list || !identificador)
-		return -1;
+		return NULL;
 
 	if(procuraElemento(list, identificador))
-		return -2;
+		return NULL;
 
 	ListNode *node;
 	node = (ListNode*)malloc(sizeof(ListNode));
@@ -38,7 +38,7 @@ int inserirElemento(List *list, char *identificador)
 	node->next = NULL;
 	list->tail = node;
 
-	return 0;
+	return node;
 }
 
 int alterarElemento(List *list, char *identificador, void *valorNovo)

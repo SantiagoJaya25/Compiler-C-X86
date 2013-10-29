@@ -19,8 +19,9 @@ typedef struct _List
 	ListNode *tail;
 } List;
 
-extern int inserirElemento(List *list, char *identificador);
-int alterarElemento(List *list, char *identificador, void *valorNovo);
+extern int inicializarLista(List *list);
+extern ListNode *inserirElemento(List *list, char *identificador);
+extern int alterarElemento(List *list, char *identificador, void *valorNovo);
 extern ListNode* procuraElemento(List *list, char *identificador);
 extern void printList(List *list);
 

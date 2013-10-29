@@ -1,24 +1,20 @@
 #include <stdio.h>
 #include <string.h>
 #include "funcoes.h"
+#include "list.h"
+#include "sintatico.h"
+
+List list;
 
 void
-declaracaoVariavel(char *token)
+declaracaoVariavel(char *token, char *identificador)
 {
 	if(strcmp(token, "int")==0)
-		declaracaoVariavelInteira();
+		printf("%s resb %lu\n",identificador,sizeof(int));
 	else if(strcmp(token, "float")==0)
-		declaracaoVariavelReal();
-}
+		printf("%s resb %lu\n",identificador,sizeof(float));
 
-void declaracaoVariavelInteira()
-{
-	printf("declaracaoVariavelInteira\n");
-}
-
-void declaracaoVariavelReal()
-{
-	printf("declaracaoVariavelReal\n");
+	inserirElemento(&list, identificador);
 }
 
 void funcaoIF()
