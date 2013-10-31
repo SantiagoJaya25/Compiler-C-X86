@@ -7,7 +7,6 @@ typedef struct _ListNode
 	char *identificador;
 	int preenchido;
 	void *valor;
-	/*char *escopo*/
 	
 	struct _ListNode *next;
 	struct _ListNode *prev;
@@ -20,7 +19,7 @@ typedef struct _List
 } List;
 
 extern int inicializarLista(List *list);
-extern ListNode *inserirElemento(List *list, char *identificador);
+extern ListNode *inserirElemento(List *list, char *identificador, char *tipo);
 extern int alterarElemento(List *list, char *identificador, void *valorNovo);
 extern ListNode* procuraElemento(List *list, char *identificador);
 extern void printList(List *list);

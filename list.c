@@ -11,7 +11,7 @@ int inicializarLista(List *list)
 	return 0;
 }
 
-ListNode *inserirElemento(List *list, char *identificador)
+ListNode *inserirElemento(List *list, char *identificador, char *tipo)
 {
 	if(!list || !identificador)
 		return NULL;
@@ -23,6 +23,7 @@ ListNode *inserirElemento(List *list, char *identificador)
 	node = (ListNode*)malloc(sizeof(ListNode));
 
 	node->identificador = identificador;
+	node->tipo = tipo;
 
 	if(!list->head)
 	{

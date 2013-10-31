@@ -19,12 +19,10 @@ float "float"
 
 {branco} { /* Desconsiderar espaços em branco */ }
 {numeroInteiro} {
-	printf("Isso e um inteiro: %s\n",yytext);
 	return(NUMERO_INTEIRO);
 }
 
 {numeroReal} {
-	printf("Isso e um float: %s\n",yytext);
 	return(NUMERO_REAL);
 }
 
@@ -69,7 +67,6 @@ float "float"
 "\"" return(ASPAS);
 
 {identificador} {
-	printf("Isso e um identificador: %s\n",yytext);
 	declaracaoVariavel(token, yytext);
 	
 	return(IDENTIFICADOR);

@@ -79,8 +79,8 @@ instrucao:
 	;
 	
 declaracao:
-	INT variavelDeclarada PONTOVIRGULA { printf("Isso é uma declaracao de inteiro\n"); }
-	| FLOAT variavelDeclarada PONTOVIRGULA { printf("Isso é uma declaracao de float\n"); }
+	INT variavelDeclarada PONTOVIRGULA
+	| FLOAT variavelDeclarada PONTOVIRGULA
 	| CHAR variavelDeclarada PONTOVIRGULA { printf("Isso é uma declaracao de char\n"); }
 	;
 	

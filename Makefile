@@ -1,4 +1,4 @@
-prog: lexico.l sintatico.y
+prog: lexico.l sintatico.y funcoes.c list.c
 	bison -d sintatico.y
 	mv sintatico.tab.h sintatico.h
 	mv sintatico.tab.c sintatico.c

@@ -3,6 +3,7 @@
 #include "funcoes.h"
 #include "list.h"
 #include "sintatico.h"
+#include <stdlib.h>
 
 List list;
 
@@ -13,8 +14,13 @@ declaracaoVariavel(char *token, char *identificador)
 		printf("%s resb %lu\n",identificador,sizeof(int));
 	else if(strcmp(token, "float")==0)
 		printf("%s resb %lu\n",identificador,sizeof(float));
-
-	inserirElemento(&list, identificador);
+	
+	char *elemento = (char*)malloc(strlen(identificador));
+	strcpy(elemento, identificador);
+	
+	inserirElemento(&list, elemento, token);
+	printf("Lista: ");
+	printList(&list);
 }
 
 void funcaoIF()
