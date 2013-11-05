@@ -14,10 +14,16 @@ numeroReal {numeroInteiro}("."{numeroInteiro})?
 identificador {letra}+({digito}|{letra})*
 inteiro "int"
 float "float"
+main "main"
 
 %%
 
 {branco} { /* Desconsiderar espaços em branco */ }
+{main} {
+	criarArquivoStart();
+	
+	return(MAIN);
+}
 {numeroInteiro} {
 	return(NUMERO_INTEIRO);
 }

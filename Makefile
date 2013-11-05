@@ -7,4 +7,4 @@ prog: lexico.l sintatico.y funcoes.c list.c
 	gcc -o prog sintatico.c lexico.c funcoes.c list.c -I. -lm
 
 clean:
-	rm lexico.c sintatico.c sintatico.h prog *~
+	rm lexico.c sintatico.c sintatico.h programa.asm start.asm prog *~

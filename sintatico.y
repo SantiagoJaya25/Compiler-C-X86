@@ -7,6 +7,7 @@
 extern List list;
 %}
 
+%token MAIN
 %token NUMERO_INTEIRO NUMERO_REAL IDENTIFICADOR
 %token INT FLOAT CHAR
 %token PRINTF
@@ -30,6 +31,11 @@ Entrada:
    	| Entrada instrucao
    	| Entrada declaracao
    	| Entrada printf
+   	| Entrada main
+	;
+
+main:
+	INT MAIN PARENTESES_ESQUERDA PARENTESES_DIREITA
 	;
 if:
 	IF PARENTESES_ESQUERDA condicao PARENTESES_DIREITA { funcaoIF(); }
@@ -102,5 +108,7 @@ int yyerror(char *s) {
 
 int main(void) {
 	inicializarLista(&list);
+
+	criarArquivoBSS();
    	yyparse();
 }

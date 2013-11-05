@@ -6,14 +6,32 @@
 #include <stdlib.h>
 
 List list;
+FILE *ArquivoAssembly;
+FILE *ArquivoStart;
+
+void criarArquivoBSS()
+{
+	ArquivoAssembly = fopen("programa.asm","w");
+	fprintf(ArquivoAssembly, "section .bss\n");
+	fclose(ArquivoAssembly);
+}
+
+void criarArquivoStart()
+{
+	ArquivoStart = fopen("start.asm","w");
+	fprintf(ArquivoStart, "\nsection .text\n\tglobal _start\n_start:\n");
+	fclose(ArquivoStart);
+}
 
 void
 declaracaoVariavel(char *token, char *identificador)
 {
+	ArquivoAssembly = fopen("programa.asm","a");
+
 	if(strcmp(token, "int")==0)
-		printf("%s resb %lu\n",identificador,sizeof(int));
+		fprintf(ArquivoAssembly,"%s resb %lu\n",identificador,sizeof(int));
 	else if(strcmp(token, "float")==0)
-		printf("%s resb %lu\n",identificador,sizeof(float));
+		fprintf(ArquivoAssembly,"%s resb %lu\n",identificador,sizeof(double));
 	
 	char *elemento = (char*)malloc(strlen(identificador));
 	strcpy(elemento, identificador);
@@ -21,6 +39,8 @@ declaracaoVariavel(char *token, char *identificador)
 	inserirElemento(&list, elemento, token);
 	printf("Lista: ");
 	printList(&list);
+
+	fclose(ArquivoAssembly);
 }
 
 void funcaoIF()
