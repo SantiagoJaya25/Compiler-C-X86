@@ -37,8 +37,6 @@ declaracaoVariavel(char *token, char *identificador)
 	strcpy(elemento, identificador);
 	
 	inserirElemento(&list, elemento, token);
-	printf("Lista: ");
-	printList(&list);
 
 	fclose(ArquivoAssembly);
 }
