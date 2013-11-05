@@ -30,6 +30,7 @@ recebe "="
 	if(atribuicao)
 	{
 		atribuir(variavel, yytext);
+		atribuicao=0;
 	}
 	return(NUMERO_INTEIRO);
 }
@@ -38,6 +39,7 @@ recebe "="
 	if(atribuicao)
 	{
 		atribuir(variavel, yytext);
+		atribuicao=0;
 	}
 	return(NUMERO_REAL);
 }

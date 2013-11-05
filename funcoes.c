@@ -46,7 +46,6 @@ void atribuir(char *variavel, char *numero)
 	ArquivoStart = fopen("start.asm","a");
 	
 	fprintf(ArquivoStart,"\tmov [%s], %s\n",variavel,numero);
-	fprintf(ArquivoStart,"\tint 80h\n\n");
 
 	fclose(ArquivoStart);
 }
