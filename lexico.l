@@ -3,7 +3,8 @@
 #include "funcoes.h"
 #include <string.h>
 #include <stdlib.h>
-char token[100];
+char token[100], variavel[100];
+int atribuicao=0;
 %}
 
 branco [ \t\n]+
@@ -15,20 +16,29 @@ identificador {letra}+({digito}|{letra})*
 inteiro "int"
 float "float"
 main "main"
+recebe "="
 
 %%
 
 {branco} { /* Desconsiderar espaços em branco */ }
 {main} {
 	criarArquivoStart();
-	
+
 	return(MAIN);
 }
 {numeroInteiro} {
+	if(atribuicao)
+	{
+		atribuir(variavel, yytext);
+	}
 	return(NUMERO_INTEIRO);
 }
 
 {numeroReal} {
+	if(atribuicao)
+	{
+		atribuir(variavel, yytext);
+	}
 	return(NUMERO_REAL);
 }
 
@@ -55,7 +65,12 @@ main "main"
 "/" return(DIVISAO);
 "(" return(PARENTESES_ESQUERDA);
 ")" return(PARENTESES_DIREITA);
-"=" return(RECEBE);
+
+{recebe} {
+	atribuicao=1;
+	return(RECEBE);
+}
+
 "==" return(COMPARACAO);
 ">=" return(MAIOR_IGUAL);
 "<=" return(MENOR_IGUAL);
@@ -73,6 +88,7 @@ main "main"
 "\"" return(ASPAS);
 
 {identificador} {
+	strcpy(variavel,yytext);
 	declaracaoVariavel(token, yytext);
 	
 	return(IDENTIFICADOR);

@@ -29,9 +29,9 @@ declaracaoVariavel(char *token, char *identificador)
 	ArquivoAssembly = fopen("programa.asm","a");
 
 	if(strcmp(token, "int")==0)
-		fprintf(ArquivoAssembly,"%s resb %lu\n",identificador,sizeof(int));
+		fprintf(ArquivoAssembly,"\t%s resb %lu\n",identificador,sizeof(int));
 	else if(strcmp(token, "float")==0)
-		fprintf(ArquivoAssembly,"%s resb %lu\n",identificador,sizeof(double));
+		fprintf(ArquivoAssembly,"\t%s resb %lu\n",identificador,sizeof(double));
 	
 	char *elemento = (char*)malloc(strlen(identificador));
 	strcpy(elemento, identificador);
@@ -41,6 +41,16 @@ declaracaoVariavel(char *token, char *identificador)
 	printList(&list);
 
 	fclose(ArquivoAssembly);
+}
+
+void atribuir(char *variavel, char *numero)
+{
+	ArquivoStart = fopen("start.asm","a");
+	
+	fprintf(ArquivoStart,"\tmov [%s], %s\n",variavel,numero);
+	fprintf(ArquivoStart,"\tint 80h\n\n");
+
+	fclose(ArquivoStart);
 }
 
 void funcaoIF()
