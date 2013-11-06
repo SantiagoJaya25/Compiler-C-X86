@@ -3,8 +3,9 @@
 #include "funcoes.h"
 #include <string.h>
 #include <stdlib.h>
-char token[100], variavel[100], termo1[100], termo2[100], operador[2];
+char token[100], variavel[100];
 int atribuicao=0, estaNoIf=0;
+TermoIF termoIF;
 %}
 
 branco [ \t\n]+
@@ -44,7 +45,10 @@ diferente "!="
 	}
 
 	if(estaNoIf)
-		pupularTermosIf(termo1,termo2, yytext, operador, "numero");
+	{
+		strcpy(termoIF.tipo, "numero");
+		pupularTermosIf(&termoIF, yytext);
+	}
 
 	return(NUMERO_INTEIRO);
 }
@@ -57,7 +61,10 @@ diferente "!="
 	}
 
 	if(estaNoIf)
-		pupularTermosIf(termo1,termo2, yytext, operador, "numero");
+	{
+		strcpy(termoIF.tipo, "numero");
+		pupularTermosIf(&termoIF, yytext);
+	}
 
 	return(NUMERO_REAL);
 }
@@ -100,32 +107,32 @@ diferente "!="
 }
 
 {comparacao} {
-	strcpy(operador,yytext);
+	strcpy(termoIF.operador,yytext);
 	return(COMPARACAO);
 }
 
 {maiorIgual} {
-	strcpy(operador,yytext);
+	strcpy(termoIF.operador,yytext);
 	return(MAIOR_IGUAL);
 }
 
 {menorIgual} {
-	strcpy(operador,yytext);
+	strcpy(termoIF.operador,yytext);
 	return(MENOR_IGUAL);
 }
 
 {maiorQue} {
-	strcpy(operador,yytext);
+	strcpy(termoIF.operador,yytext);
 	return(MAIOR_QUE);
 }
 
 {menorQue} {
-	strcpy(operador,yytext);
+	strcpy(termoIF.operador,yytext);
 	return(MENOR_QUE);
 }
 
 {diferente} {
-	strcpy(operador,yytext);
+	strcpy(termoIF.operador,yytext);
 	return(DIFERENTE);
 }
 
@@ -140,10 +147,14 @@ diferente "!="
 	/* Reinicando todas as variáveis */
 	strcpy(token, "");
 	strcpy(variavel, "");
-	strcpy(termo1, "");
-	strcpy(termo2, "");
 	atribuicao=0;
 	estaNoIf=0;
+
+	if(termoIF.termo1 && termoIF.termo2)
+	{
+		strcpy(termoIF.termo1, "");
+		strcpy(termoIF.termo2, "");
+	}
 
 	return(PONTOVIRGULA);
 }
@@ -158,7 +169,10 @@ diferente "!="
 		declaracaoVariavel(token, yytext);
 
 	if(estaNoIf)
-		pupularTermosIf(termo1,termo2, yytext, operador, "variavel");
+	{
+		strcpy(termoIF.tipo, "variavel");
+		pupularTermosIf(&termoIF, yytext);
+	}
 	
 	return(IDENTIFICADOR);
 }
