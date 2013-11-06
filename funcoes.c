@@ -45,7 +45,10 @@ void declaracaoVariavel(char *token, char *identificador)
 
 void atribuir(char *variavel, char *numero)
 {
-	alterarElemento(&list, variavel, numero);
+	char *novoValor = (char*)malloc(strlen(numero));
+	strcpy(novoValor, numero);
+
+	alterarElemento(&list, variavel, novoValor);
 
 	ArquivoStart = fopen("start.asm","a");
 	

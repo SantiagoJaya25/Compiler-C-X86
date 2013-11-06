@@ -92,7 +92,7 @@ void printList(List *list)
 
 	while(temp)
 	{
-		printf("%s ", temp->identificador,temp->valor);
+		printf("%s ", temp->identificador);
 		temp = temp->next;
 	}
 	printf("\n");
