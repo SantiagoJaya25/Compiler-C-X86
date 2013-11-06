@@ -7,6 +7,7 @@ extern void criarArquivoStart();
 
 extern void atribuir(char *variavel, char *numero);
 
+void pupularTermosIf(char *termo1, char *termo2, char *identificador);
 extern void funcaoIF();
 
 #endif

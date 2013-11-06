@@ -3,8 +3,8 @@
 #include "funcoes.h"
 #include <string.h>
 #include <stdlib.h>
-char token[100], variavel[100];
-int atribuicao=0;
+char token[100], variavel[100], termo1[100], termo2[100];
+int atribuicao=0, estaNoIf=0;
 %}
 
 branco [ \t\n]+
@@ -34,6 +34,9 @@ pontoVirgula ";"
 		atribuir(variavel, yytext);
 		atribuicao=0;
 	}
+
+	pupularTermosIf(termo1,termo2, yytext);
+
 	return(NUMERO_INTEIRO);
 }
 
@@ -43,10 +46,14 @@ pontoVirgula ";"
 		atribuir(variavel, yytext);
 		atribuicao=0;
 	}
+
+	pupularTermosIf(termo1,termo2, yytext);
+
 	return(NUMERO_REAL);
 }
 
 {se} {
+	estaNoIf=1;
 	return(IF);
 }
 
@@ -93,7 +100,10 @@ pontoVirgula ";"
 	/* Reinicando todas as variáveis */
 	strcpy(token, "");
 	strcpy(variavel, "");
+	strcpy(termo1, "");
+	strcpy(termo2, "");
 	atribuicao=0;
+	estaNoIf=0;
 
 	return(PONTOVIRGULA);
 }
@@ -106,6 +116,8 @@ pontoVirgula ";"
 	
 	if(strcmp(token, "")!=0)
 		declaracaoVariavel(token, yytext);
+
+	pupularTermosIf(termo1,termo2, yytext);
 	
 	return(IDENTIFICADOR);
 }

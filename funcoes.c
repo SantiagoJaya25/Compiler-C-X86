@@ -57,6 +57,21 @@ void atribuir(char *variavel, char *numero)
 	fclose(ArquivoStart);
 }
 
+void pupularTermosIf(char *termo1, char *termo2, char *identificador)
+{
+	char *elemento = (char*)malloc(strlen(identificador));
+	strcpy(elemento, identificador);
+
+	if(strcmp(termo1, "")==0)
+	{
+		strcpy(termo1, elemento);
+	}
+	else if(strcmp(termo2, "")==0)
+	{
+		strcpy(termo2, elemento);
+	}
+}
+
 void funcaoIF()
 {
 	printf("CMP condicao\n");
