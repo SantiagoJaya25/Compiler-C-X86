@@ -49,13 +49,15 @@ int alterarElemento(List *list, char *identificador, char *valorNovo)
 	if(!list)
 		return -1;
 
-	ListNode *temp = (ListNode*)malloc(sizeof(ListNode));
+	ListNode *temp = procuraElemento(list, identificador);
 
-	temp = procuraElemento(list, identificador);
-
-	temp->valor = valorNovo;
-
-	temp->preenchido = 1;
+	if(temp)
+	{
+		temp->valor = valorNovo;
+		temp->preenchido = 1;
+	}
+	else
+		printf("ERROR: Variável %s não declarada\n",identificador);
 
 	return 0;
 		
@@ -90,7 +92,7 @@ void printList(List *list)
 
 	while(temp)
 	{
-		printf("%s ", temp->identificador);
+		printf("%s ", temp->identificador,temp->valor);
 		temp = temp->next;
 	}
 	printf("\n");

@@ -3,7 +3,7 @@
 #include "funcoes.h"
 #include <string.h>
 #include <stdlib.h>
-char token[100], variavel[100];
+char token[100], variavel[100], termoIf1[100], termoIf2[100];
 int atribuicao=0, variavelIf=0;
 %}
 
@@ -65,8 +65,6 @@ pontoVirgula ";"
 	return(FLOAT);
 }
 
-"char" return(CHAR);
-"printf" return(PRINTF);
 "+" return(SOMA);
 "-" return(SUBTRACAO);
 "*" return(MULTIPLICACAO);
@@ -106,11 +104,10 @@ pontoVirgula ";"
 "\"" return(ASPAS);
 
 {identificador} {
+	strcpy(variavel,yytext);
+	
 	if(strcmp(token, "")!=0)
-	{
-		strcpy(variavel,yytext);
 		declaracaoVariavel(token, yytext);
-	}
 	
 	return(IDENTIFICADOR);
 }

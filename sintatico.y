@@ -9,8 +9,7 @@ extern List list;
 
 %token MAIN
 %token NUMERO_INTEIRO NUMERO_REAL IDENTIFICADOR
-%token INT FLOAT CHAR
-%token PRINTF
+%token INT FLOAT
 %token SOMA SUBTRACAO MULTIPLICACAO DIVISAO INCREMENTO DECREMENTO
 %token PARENTESES_ESQUERDA PARENTESES_DIREITA CHAVE_ESQUERDA CHAVE_DIREITA
 %token RECEBE COMPARACAO E OU MAIOR_IGUAL MENOR_IGUAL MAIOR_QUE MENOR_QUE DIFERENTE
@@ -30,7 +29,6 @@ Entrada:
    	| Entrada for
    	| Entrada instrucao
    	| Entrada declaracao
-   	| Entrada printf
    	| Entrada main
 	;
 
@@ -87,17 +85,12 @@ instrucao:
 declaracao:
 	INT variavelDeclarada PONTOVIRGULA
 	| FLOAT variavelDeclarada PONTOVIRGULA
-	| CHAR variavelDeclarada PONTOVIRGULA { printf("Isso é uma declaracao de char\n"); }
 	;
 	
 variavelDeclarada:
 	IDENTIFICADOR
 	| IDENTIFICADOR RECEBE expressao
 	| variavelDeclarada VIRGULA	variavelDeclarada
-	;
-
-printf:
-	PRINTF PARENTESES_ESQUERDA ASPAS ASPAS PARENTESES_DIREITA PONTOVIRGULA { printf("Isso é um printf\n"); }
 	;
 
 %%
