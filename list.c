@@ -1,7 +1,6 @@
-#include <stdio.h>
 #include "list.h"
 #include <stdlib.h>
-#include <string.h>
+#include <stdio.h>
 
 int inicializarLista(List *list)
 {
@@ -17,7 +16,10 @@ ListNode *inserirElemento(List *list, char *identificador, char *tipo)
 		return NULL;
 
 	if(procuraElemento(list, identificador))
+	{
+		printf("ERROR: Variável %s redeclarada\n",identificador);
 		return NULL;
+	}
 
 	ListNode *node;
 	node = (ListNode*)malloc(sizeof(ListNode));

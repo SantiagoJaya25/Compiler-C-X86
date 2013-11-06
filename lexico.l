@@ -4,7 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 char token[100], variavel[100];
-int atribuicao=0;
+int atribuicao=0, variavelIf=0;
 %}
 
 branco [ \t\n]+
@@ -17,6 +17,8 @@ inteiro "int"
 float "float"
 main "main"
 recebe "="
+se "if"
+pontoVirgula ";"
 
 %%
 
@@ -44,7 +46,11 @@ recebe "="
 	return(NUMERO_REAL);
 }
 
-"if" return(IF);
+{se} {
+	variavelIf=1;
+	return(IF);
+}
+
 "else" return(ELSE);
 "while" return(WHILE);
 "for" return(FOR);
@@ -85,13 +91,26 @@ recebe "="
 "--" return(DECREMENTO);
 "{" return(CHAVE_ESQUERDA);
 "}" return(CHAVE_DIREITA);
-";" return(PONTOVIRGULA);
+
+{pontoVirgula} {
+	/* Reinicando todas as variáveis */
+	strcpy(token, "");
+	strcpy(variavel, "");
+	atribuicao=0;
+	variavelIf=0;
+
+	return(PONTOVIRGULA);
+}
+
 "," return(VIRGULA);
 "\"" return(ASPAS);
 
 {identificador} {
-	strcpy(variavel,yytext);
-	declaracaoVariavel(token, yytext);
+	if(strcmp(token, "")!=0)
+	{
+		strcpy(variavel,yytext);
+		declaracaoVariavel(token, yytext);
+	}
 	
 	return(IDENTIFICADOR);
 }

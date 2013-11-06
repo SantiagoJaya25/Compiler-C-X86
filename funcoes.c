@@ -23,8 +23,7 @@ void criarArquivoStart()
 	fclose(ArquivoStart);
 }
 
-void
-declaracaoVariavel(char *token, char *identificador)
+void declaracaoVariavel(char *token, char *identificador)
 {
 	ArquivoAssembly = fopen("programa.asm","a");
 
@@ -39,6 +38,9 @@ declaracaoVariavel(char *token, char *identificador)
 	inserirElemento(&list, elemento, token);
 
 	fclose(ArquivoAssembly);
+
+	printf("Lista: ");
+	printList(&list);
 }
 
 void atribuir(char *variavel, char *numero)
