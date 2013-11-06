@@ -42,7 +42,7 @@ ListNode *inserirElemento(List *list, char *identificador, char *tipo)
 	return node;
 }
 
-int alterarElemento(List *list, char *identificador, void *valorNovo)
+int alterarElemento(List *list, char *identificador, char *valorNovo)
 {
 	if(!list)
 		return -1;

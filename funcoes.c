@@ -43,6 +43,8 @@ declaracaoVariavel(char *token, char *identificador)
 
 void atribuir(char *variavel, char *numero)
 {
+	alterarElemento(&list, variavel, numero);
+
 	ArquivoStart = fopen("start.asm","a");
 	
 	fprintf(ArquivoStart,"\tmov [%s], %s\n",variavel,numero);
