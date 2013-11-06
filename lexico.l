@@ -3,7 +3,7 @@
 #include "funcoes.h"
 #include <string.h>
 #include <stdlib.h>
-char token[100], variavel[100];
+char token[100], variavel[100], tipoTermo[100];
 int atribuicao=0, estaNoIf=0;
 TermoIF termoIF;
 %}
@@ -46,8 +46,8 @@ diferente "!="
 
 	if(estaNoIf)
 	{
-		strcpy(termoIF.tipo, "numero");
-		pupularTermosIf(&termoIF, yytext);
+		strcpy(tipoTermo, "numero");
+		popularTermosIf(&termoIF, yytext, tipoTermo);
 	}
 
 	return(NUMERO_INTEIRO);
@@ -62,8 +62,8 @@ diferente "!="
 
 	if(estaNoIf)
 	{
-		strcpy(termoIF.tipo, "numero");
-		pupularTermosIf(&termoIF, yytext);
+		strcpy(tipoTermo, "numero");
+		popularTermosIf(&termoIF, yytext, tipoTermo);
 	}
 
 	return(NUMERO_REAL);
@@ -147,14 +147,9 @@ diferente "!="
 	/* Reinicando todas as variáveis */
 	strcpy(token, "");
 	strcpy(variavel, "");
+	strcpy(tipoTermo, "");
 	atribuicao=0;
 	estaNoIf=0;
-
-	if(termoIF.termo1 && termoIF.termo2)
-	{
-		strcpy(termoIF.termo1, "");
-		strcpy(termoIF.termo2, "");
-	}
 
 	return(PONTOVIRGULA);
 }
@@ -167,11 +162,11 @@ diferente "!="
 	
 	if(strcmp(token, "")!=0)
 		declaracaoVariavel(token, yytext);
-
+	
 	if(estaNoIf)
 	{
-		strcpy(termoIF.tipo, "variavel");
-		pupularTermosIf(&termoIF, yytext);
+		strcpy(tipoTermo, "variavel");
+		popularTermosIf(&termoIF, yytext, tipoTermo);
 	}
 	
 	return(IDENTIFICADOR);

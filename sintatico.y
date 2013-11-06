@@ -36,7 +36,7 @@ main:
 	INT MAIN PARENTESES_ESQUERDA PARENTESES_DIREITA
 	;
 if:
-	IF PARENTESES_ESQUERDA condicao PARENTESES_DIREITA
+	IF PARENTESES_ESQUERDA condicao PARENTESES_DIREITA { printf("Isso é um if\n"); }
 	| ELSE { printf("Isso é um else\n"); }
 	| ELSE if { printf("Isso é um else if\n"); }
 	;

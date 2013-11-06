@@ -57,9 +57,18 @@ void atribuir(char *variavel, char *numero)
 	fclose(ArquivoStart);
 }
 
-void pupularTermosIf(TermoIF *termoIF, char *identificador)
+void inicializarTermoIF(TermoIF *termoIF)
 {
-	if(strcmp(termoIF->tipo, "variavel")==0)
+	strcpy(termoIF->termo1, "");
+	strcpy(termoIF->termo2, "");
+	strcpy(termoIF->tipoTermo1, "");
+	strcpy(termoIF->tipoTermo2, "");
+	strcpy(termoIF->operador, "");
+}
+
+void popularTermosIf(TermoIF *termoIF, char *identificador, char *tipoTermo)
+{
+	if(strcmp(tipoTermo, "variavel")==0)
 	{
 		if(!procuraElemento(&list, identificador))
 			printf("ERROR: Variável %s não declarada\n",identificador);
@@ -68,19 +77,33 @@ void pupularTermosIf(TermoIF *termoIF, char *identificador)
 	char *elemento = (char*)malloc(strlen(identificador));
 	strcpy(elemento, identificador);
 
-	if(!termoIF->termo1)
+	if(strcmp(termoIF->termo1, "")==0)
 	{
+		strcpy(termoIF->tipoTermo1, tipoTermo);
 		strcpy(termoIF->termo1, elemento);
 	}
-	else if(!termoIF->termo2)
+	else if(strcmp(termoIF->termo2, "")==0)
 	{
+		strcpy(termoIF->tipoTermo2, tipoTermo);
 		strcpy(termoIF->termo2, elemento);
+
+		funcaoIF(termoIF);
 	}
 }
 
-void funcaoIF()
+void funcaoIF(TermoIF *termoIF)
 {
-	printf("CMP condicao\n");
-	printf("JZ if\n");
-	printf("if: instrucoes\n");
+	printf("CMP ");
+
+	if(strcmp(termoIF->tipoTermo1, "variavel")==0)
+		printf("[%s], ",termoIF->termo1);
+	else
+		printf("%s, ",termoIF->termo1);
+
+	if(strcmp(termoIF->tipoTermo2, "variavel")==0)
+		printf("[%s]\n",termoIF->termo2);
+	else
+		printf("%s\n",termoIF->termo2);
+
+	inicializarTermoIF(termoIF);
 }
