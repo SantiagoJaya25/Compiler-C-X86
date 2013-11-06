@@ -57,8 +57,14 @@ void atribuir(char *variavel, char *numero)
 	fclose(ArquivoStart);
 }
 
-void pupularTermosIf(char *termo1, char *termo2, char *identificador)
+void pupularTermosIf(char *termo1, char *termo2, char *identificador, char *operador, char *tipo)
 {
+	if(strcmp(tipo, "variavel")==0)
+	{
+		if(!procuraElemento(&list, identificador))
+			printf("ERROR: Variável %s não declarada\n",identificador);
+	}
+
 	char *elemento = (char*)malloc(strlen(identificador));
 	strcpy(elemento, identificador);
 

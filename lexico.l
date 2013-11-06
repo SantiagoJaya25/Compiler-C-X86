@@ -3,7 +3,7 @@
 #include "funcoes.h"
 #include <string.h>
 #include <stdlib.h>
-char token[100], variavel[100], termo1[100], termo2[100];
+char token[100], variavel[100], termo1[100], termo2[100], operador[2];
 int atribuicao=0, estaNoIf=0;
 %}
 
@@ -18,7 +18,15 @@ float "float"
 main "main"
 recebe "="
 se "if"
+parentesesEsquerda "("
+parentesesDireita ")"
 pontoVirgula ";"
+comparacao "=="
+maiorIgual ">="
+menorIgual "<="
+maiorQue ">"
+menorQue "<"
+diferente "!="
 
 %%
 
@@ -35,7 +43,8 @@ pontoVirgula ";"
 		atribuicao=0;
 	}
 
-	pupularTermosIf(termo1,termo2, yytext);
+	if(estaNoIf)
+		pupularTermosIf(termo1,termo2, yytext, operador, "numero");
 
 	return(NUMERO_INTEIRO);
 }
@@ -47,7 +56,8 @@ pontoVirgula ";"
 		atribuicao=0;
 	}
 
-	pupularTermosIf(termo1,termo2, yytext);
+	if(estaNoIf)
+		pupularTermosIf(termo1,termo2, yytext, operador, "numero");
 
 	return(NUMERO_REAL);
 }
@@ -75,20 +85,50 @@ pontoVirgula ";"
 "-" return(SUBTRACAO);
 "*" return(MULTIPLICACAO);
 "/" return(DIVISAO);
-"(" return(PARENTESES_ESQUERDA);
-")" return(PARENTESES_DIREITA);
+
+{parentesesEsquerda} {
+	return(PARENTESES_ESQUERDA);
+}
+
+{parentesesDireita} {
+	return(PARENTESES_DIREITA);
+}
 
 {recebe} {
 	atribuicao=1;
 	return(RECEBE);
 }
 
-"==" return(COMPARACAO);
-">=" return(MAIOR_IGUAL);
-"<=" return(MENOR_IGUAL);
-">" return(MAIOR_QUE);
-"<" return(MENOR_QUE);
-"!=" return(DIFERENTE);
+{comparacao} {
+	strcpy(operador,yytext);
+	return(COMPARACAO);
+}
+
+{maiorIgual} {
+	strcpy(operador,yytext);
+	return(MAIOR_IGUAL);
+}
+
+{menorIgual} {
+	strcpy(operador,yytext);
+	return(MENOR_IGUAL);
+}
+
+{maiorQue} {
+	strcpy(operador,yytext);
+	return(MAIOR_QUE);
+}
+
+{menorQue} {
+	strcpy(operador,yytext);
+	return(MENOR_QUE);
+}
+
+{diferente} {
+	strcpy(operador,yytext);
+	return(DIFERENTE);
+}
+
 "&&" return(E);
 "||" return(OU);
 "++" return(INCREMENTO);
@@ -117,7 +157,8 @@ pontoVirgula ";"
 	if(strcmp(token, "")!=0)
 		declaracaoVariavel(token, yytext);
 
-	pupularTermosIf(termo1,termo2, yytext);
+	if(estaNoIf)
+		pupularTermosIf(termo1,termo2, yytext, operador, "variavel");
 	
 	return(IDENTIFICADOR);
 }

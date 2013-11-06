@@ -48,38 +48,7 @@ int printPilha(Stack *stack)
 	{
 		printf("%c ", temp->parenteses);
 	}
+	printf("\n");
 
 	return 0;
 }
-
-/*int main()
-{
-	Stack *stack = (Stack*)malloc(sizeof(Stack));
-	inicializarPilha(stack);
-
-	inserirElemento(stack, ')');
-
-	inserirElemento(stack, ')');
-	inserirElemento(stack, '(');
-
-	inserirElemento(stack, ')');
-	inserirElemento(stack, '(');
-	inserirElemento(stack, '(');
-
-	printPilha(stack);
-
-	apagarElemento(stack);
-	printPilha(stack);
-	apagarElemento(stack);
-	printPilha(stack);
-	apagarElemento(stack);
-	printPilha(stack);
-	apagarElemento(stack);
-	printPilha(stack);
-	apagarElemento(stack);
-	printPilha(stack);
-	apagarElemento(stack);
-	printPilha(stack);
-
-}
-*/
