@@ -93,17 +93,27 @@ void popularTermosIf(TermoIF *termoIF, char *identificador, char *tipoTermo)
 
 void funcaoIF(TermoIF *termoIF)
 {
-	printf("CMP ");
+	ArquivoStart = fopen("start.asm","a");
+
+	fprintf(ArquivoStart,"\n\tCMP ");
 
 	if(strcmp(termoIF->tipoTermo1, "variavel")==0)
-		printf("[%s], ",termoIF->termo1);
+		fprintf(ArquivoStart,"[%s], ",termoIF->termo1);
 	else
-		printf("%s, ",termoIF->termo1);
+		fprintf(ArquivoStart,"%s, ",termoIF->termo1);
 
 	if(strcmp(termoIF->tipoTermo2, "variavel")==0)
-		printf("[%s]\n",termoIF->termo2);
+		fprintf(ArquivoStart,"[%s]\n",termoIF->termo2);
 	else
-		printf("%s\n",termoIF->termo2);
+		fprintf(ArquivoStart,"%s\n",termoIF->termo2);
+
+	if(strcmp(termoIF->operador, "=="))
+	{
+		fprintf(ArquivoStart,"\tJE Entao\n");
+		fprintf(ArquivoStart,"\tJNE Senao\n");
+	}
 
 	inicializarTermoIF(termoIF);
+
+	fclose(ArquivoStart);
 }

@@ -4,6 +4,8 @@ int main()
 	float e, f, g=1.4, h=2.5;
 	int testeVariavel;
 
+	c=1;
+	
 	if(a>b)
 	{
 
@@ -11,6 +13,6 @@ int main()
 
 	if(b<7)
 	{
-		
+
 	}
 }
