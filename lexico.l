@@ -3,8 +3,8 @@
 #include "funcoes.h"
 #include <string.h>
 #include <stdlib.h>
-char token[100], variavel[100], termoIf1[100], termoIf2[100];
-int atribuicao=0, variavelIf=0;
+char token[100], variavel[100];
+int atribuicao=0;
 %}
 
 branco [ \t\n]+
@@ -47,7 +47,6 @@ pontoVirgula ";"
 }
 
 {se} {
-	variavelIf=1;
 	return(IF);
 }
 
@@ -95,7 +94,6 @@ pontoVirgula ";"
 	strcpy(token, "");
 	strcpy(variavel, "");
 	atribuicao=0;
-	variavelIf=0;
 
 	return(PONTOVIRGULA);
 }
