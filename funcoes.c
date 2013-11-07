@@ -30,7 +30,7 @@ void declaracaoVariavel(char *token, char *identificador)
 	if(strcmp(token, "int")==0)
 		fprintf(ArquivoAssembly,"\t%s resb %lu\n",identificador,sizeof(int));
 	else if(strcmp(token, "float")==0)
-		fprintf(ArquivoAssembly,"\t%s resb %lu\n",identificador,sizeof(double));
+		fprintf(ArquivoAssembly,"\t%s resb %lu\n",identificador,sizeof(float));
 	
 	char *elemento = (char*)malloc(strlen(identificador));
 	strcpy(elemento, identificador);
