@@ -108,8 +108,8 @@ void popularTermosIf(TermoIF *termoIF, char *identificador, char *tipoTermo)
 void funcaoIF(TermoIF *termoIF)
 {
 	ArquivoStart = fopen("start.asm","a");
-	LabelSE = fopen("labelSE.asm", "w");
-	LabelSENAO = fopen("labelSENAO.asm", "w");
+	LabelSE = fopen("labelSE.asm", "a");
+	LabelSENAO = fopen("labelSENAO.asm", "a");
 
 	fprintf(ArquivoStart,"\n\tCMP ");
 
