@@ -8,11 +8,6 @@
 List list;
 FILE *ArquivoAssembly;
 FILE *ArquivoStart;
-FILE *LabelSE;
-FILE *LabelSENAO;
-extern int corpoIf;
-extern int corpoElse;
-int condicao=0;
 
 void criarArquivoBSS()
 {
@@ -35,12 +30,12 @@ void declaracaoVariavel(char *token, char *identificador)
 	if(strcmp(token, "int")==0)
 		fprintf(ArquivoAssembly,"\t%s resb %lu\n",identificador,sizeof(int));
 	else if(strcmp(token, "float")==0)
-		fprintf(ArquivoAssembly,"\t%s resb %lu\n",identificador,sizeof(float));
+		fprintf(ArquivoAssembly,"\t%s resb %lu\n",identificador,sizeof(double));
 	
 	char *elemento = (char*)malloc(strlen(identificador));
 	strcpy(elemento, identificador);
 	
-	inserirElementoLista(&list, elemento, token);
+	inserirElemento(&list, elemento, token);
 
 	fclose(ArquivoAssembly);
 
@@ -53,22 +48,13 @@ void atribuir(char *variavel, char *numero)
 	char *novoValor = (char*)malloc(strlen(numero));
 	strcpy(novoValor, numero);
 
-	alterarElementoLista(&list, variavel, novoValor);
+	alterarElemento(&list, variavel, novoValor);
 
 	ArquivoStart = fopen("start.asm","a");
-	LabelSE = fopen("labelSE.asm","a");
-	LabelSENAO = fopen("labelSENAO.asm","a");
 	
-	if(corpoIf)
-		fprintf(LabelSE,"\t\tmov [%s], %s\n",variavel,numero);
-	else if(corpoElse)
-		fprintf(LabelSENAO,"\t\tmov [%s], %s\n",variavel,numero);
-	else
-		fprintf(ArquivoStart,"\tmov [%s], %s\n",variavel,numero);
-		
+	fprintf(ArquivoStart,"\tmov [%s], %s\n",variavel,numero);
+
 	fclose(ArquivoStart);
-	fclose(LabelSE);
-	fclose(LabelSENAO);
 }
 
 void inicializarTermoIF(TermoIF *termoIF)
@@ -84,7 +70,7 @@ void popularTermosIf(TermoIF *termoIF, char *identificador, char *tipoTermo)
 {
 	if(strcmp(tipoTermo, "variavel")==0)
 	{
-		if(!procuraElementoLista(&list, identificador))
+		if(!procuraElemento(&list, identificador))
 			printf("ERROR: Variável %s não declarada\n",identificador);
 	}
 
@@ -108,8 +94,6 @@ void popularTermosIf(TermoIF *termoIF, char *identificador, char *tipoTermo)
 void funcaoIF(TermoIF *termoIF)
 {
 	ArquivoStart = fopen("start.asm","a");
-	LabelSE = fopen("labelSE.asm", "w");
-	LabelSENAO = fopen("labelSENAO.asm", "w");
 
 	fprintf(ArquivoStart,"\n\tCMP ");
 
@@ -123,20 +107,13 @@ void funcaoIF(TermoIF *termoIF)
 	else
 		fprintf(ArquivoStart,"%s\n",termoIF->termo2);
 
-	if(strcmp(termoIF->operador, "==")==0)
+	if(strcmp(termoIF->operador, "=="))
 	{
-		fprintf(ArquivoStart,"\tJE Condicao%d\n",condicao);
-		fprintf(LabelSE,"\n\tCondicao%d:\n",condicao);
-		condicao++;
-
-		fprintf(ArquivoStart,"\tJNE Condicao%d\n",condicao);
-		fprintf(LabelSENAO,"\n\tCondicao%d:\n",condicao);
-		condicao++;
+		fprintf(ArquivoStart,"\tJE Entao\n");
+		fprintf(ArquivoStart,"\tJNE Senao\n");
 	}
 
 	inicializarTermoIF(termoIF);
 
 	fclose(ArquivoStart);
-	fclose(LabelSE);
-	fclose(LabelSENAO);
 }
