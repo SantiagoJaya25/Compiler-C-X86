@@ -5,7 +5,7 @@
 #include <string.h>
 #include <stdlib.h>
 char token[100], variavel[100], tipoTermo[100];
-int atribuicao=0, estaNoIf=0;
+int atribuicao=0, parametroIf=0, estaNoIf=0, corpoIf=0, estaNoElse=0, corpoElse=0;
 TermoIF termoIF;
 Stack stack;
 %}
@@ -21,8 +21,11 @@ float "float"
 main "main"
 recebe "="
 se "if"
+senao "else"
 parentesesEsquerda "("
 parentesesDireita ")"
+chaveEsquerda "{"
+chaveDireita "}"
 pontoVirgula ";"
 comparacao "=="
 maiorIgual ">="
@@ -46,7 +49,7 @@ diferente "!="
 		atribuicao=0;
 	}
 
-	if(estaNoIf)
+	if(parametroIf)
 	{
 		strcpy(tipoTermo, "numero");
 		popularTermosIf(&termoIF, yytext, tipoTermo);
@@ -62,7 +65,7 @@ diferente "!="
 		atribuicao=0;
 	}
 
-	if(estaNoIf)
+	if(parametroIf)
 	{
 		strcpy(tipoTermo, "numero");
 		popularTermosIf(&termoIF, yytext, tipoTermo);
@@ -72,11 +75,16 @@ diferente "!="
 }
 
 {se} {
+	parametroIf=1;
 	estaNoIf=1;
 	return(IF);
 }
 
-"else" return(ELSE);
+{senao} {
+	estaNoElse=1;
+	return(ELSE);
+}
+
 "while" return(WHILE);
 "for" return(FOR);
 
@@ -104,7 +112,7 @@ diferente "!="
 	apagarElementoPilha(&stack);
 
 	if(!stack.top)
-		estaNoIf=0;
+		parametroIf=0;
 
 	return(PARENTESES_DIREITA);
 }
@@ -148,8 +156,24 @@ diferente "!="
 "||" return(OU);
 "++" return(INCREMENTO);
 "--" return(DECREMENTO);
-"{" return(CHAVE_ESQUERDA);
-"}" return(CHAVE_DIREITA);
+
+{chaveEsquerda} {
+	if(estaNoIf)
+		corpoIf=1;
+
+	if(estaNoElse)
+		corpoElse=1;
+
+	return(CHAVE_ESQUERDA);
+}
+
+{chaveDireita} {
+	estaNoIf=0;
+	corpoIf=0;
+	corpoElse=0;
+
+	return(CHAVE_DIREITA);
+}
 
 {pontoVirgula} {
 	/* Reinicando todas as variáveis */
@@ -157,7 +181,7 @@ diferente "!="
 	strcpy(variavel, "");
 	strcpy(tipoTermo, "");
 	atribuicao=0;
-	estaNoIf=0;
+	parametroIf=0;
 
 	return(PONTOVIRGULA);
 }
@@ -171,7 +195,7 @@ diferente "!="
 	if(strcmp(token, "")!=0)
 		declaracaoVariavel(token, yytext);
 	
-	if(estaNoIf)
+	if(parametroIf)
 	{
 		strcpy(tipoTermo, "variavel");
 		popularTermosIf(&termoIF, yytext, tipoTermo);

@@ -6,13 +6,14 @@ int main()
 
 	c=1;
 	
-	if(a>b)
+	if(a==b)
 	{
-
+		c=9;
+		d=12;
 	}
-
-	else if(b<7)
+	else
 	{
-
+		d=11;
+		c=10;
 	}
 }
