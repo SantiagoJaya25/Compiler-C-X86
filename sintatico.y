@@ -3,8 +3,10 @@
 #include <stdlib.h>
 #include "funcoes.h"
 #include "list.h"
+#include "stack.h"
 
 extern List list;
+extern Stack stack;
 %}
 
 %token MAIN
@@ -101,6 +103,7 @@ int yyerror(char *s) {
 
 int main(void) {
 	inicializarLista(&list);
+	inicializarPilha(&stack);
 
 	criarArquivoBSS();
    	yyparse();

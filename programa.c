@@ -11,7 +11,7 @@ int main()
 
 	}
 
-	if(b<7)
+	else if(b<7)
 	{
 
 	}

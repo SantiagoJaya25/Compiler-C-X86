@@ -14,8 +14,8 @@ typedef struct _Stack
 } Stack;
 
 extern int inicializarPilha(Stack *stack);
-extern int inserirElemento(Stack *stack, char parenteses);
-extern int apagarElemento(Stack *stack);
+extern int inserirElementoPilha(Stack *stack, char parenteses);
+extern int apagarElementoPilha(Stack *stack);
 extern int printPilha(Stack *stack);
 
 #endif

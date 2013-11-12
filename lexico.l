@@ -1,11 +1,13 @@
 %{
 #include "sintatico.h"
 #include "funcoes.h"
+#include "stack.h"
 #include <string.h>
 #include <stdlib.h>
 char token[100], variavel[100], tipoTermo[100];
 int atribuicao=0, estaNoIf=0;
 TermoIF termoIF;
+Stack stack;
 %}
 
 branco [ \t\n]+
@@ -94,10 +96,16 @@ diferente "!="
 "/" return(DIVISAO);
 
 {parentesesEsquerda} {
+	inserirElementoPilha(&stack, '(');
 	return(PARENTESES_ESQUERDA);
 }
 
 {parentesesDireita} {
+	apagarElementoPilha(&stack);
+
+	if(!stack.top)
+		estaNoIf=0;
+
 	return(PARENTESES_DIREITA);
 }
 

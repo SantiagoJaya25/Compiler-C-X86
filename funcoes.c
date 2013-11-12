@@ -35,7 +35,7 @@ void declaracaoVariavel(char *token, char *identificador)
 	char *elemento = (char*)malloc(strlen(identificador));
 	strcpy(elemento, identificador);
 	
-	inserirElemento(&list, elemento, token);
+	inserirElementoLista(&list, elemento, token);
 
 	fclose(ArquivoAssembly);
 
@@ -48,7 +48,7 @@ void atribuir(char *variavel, char *numero)
 	char *novoValor = (char*)malloc(strlen(numero));
 	strcpy(novoValor, numero);
 
-	alterarElemento(&list, variavel, novoValor);
+	alterarElementoLista(&list, variavel, novoValor);
 
 	ArquivoStart = fopen("start.asm","a");
 	
@@ -70,7 +70,7 @@ void popularTermosIf(TermoIF *termoIF, char *identificador, char *tipoTermo)
 {
 	if(strcmp(tipoTermo, "variavel")==0)
 	{
-		if(!procuraElemento(&list, identificador))
+		if(!procuraElementoLista(&list, identificador))
 			printf("ERROR: Variável %s não declarada\n",identificador);
 	}
 

@@ -9,7 +9,7 @@ int inicializarPilha(Stack *stack)
 	return 0;
 }
 
-int inserirElemento(Stack *stack, char parenteses)
+int inserirElementoPilha(Stack *stack, char parenteses)
 {
 	if(!stack)
 		return -1;
@@ -26,7 +26,7 @@ int inserirElemento(Stack *stack, char parenteses)
 
 	return 0;
 }
-int apagarElemento(Stack *stack)
+int apagarElementoPilha(Stack *stack)
 {
 	if(!stack || !stack->top)
 	{

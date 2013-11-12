@@ -4,7 +4,7 @@ prog: lexico.l sintatico.y funcoes.c list.c
 	mv sintatico.tab.c sintatico.c
 	flex lexico.l
 	mv lex.yy.c lexico.c
-	gcc -o prog sintatico.c lexico.c funcoes.c list.c -I. -lm
+	gcc -o prog sintatico.c lexico.c funcoes.c list.c stack.c -I. -lm
 
 clean:
 	rm lexico.c sintatico.c sintatico.h programa.asm prog *~

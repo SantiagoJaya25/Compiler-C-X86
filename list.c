@@ -10,12 +10,12 @@ int inicializarLista(List *list)
 	return 0;
 }
 
-ListNode *inserirElemento(List *list, char *identificador, char *tipo)
+ListNode *inserirElementoLista(List *list, char *identificador, char *tipo)
 {
 	if(!list || !identificador)
 		return NULL;
 
-	if(procuraElemento(list, identificador))
+	if(procuraElementoLista(list, identificador))
 	{
 		printf("ERROR: Variável %s redeclarada\n",identificador);
 		return NULL;
@@ -44,12 +44,12 @@ ListNode *inserirElemento(List *list, char *identificador, char *tipo)
 	return node;
 }
 
-int alterarElemento(List *list, char *identificador, char *valorNovo)
+int alterarElementoLista(List *list, char *identificador, char *valorNovo)
 {
 	if(!list)
 		return -1;
 
-	ListNode *temp = procuraElemento(list, identificador);
+	ListNode *temp = procuraElementoLista(list, identificador);
 
 	if(temp)
 	{
@@ -63,7 +63,7 @@ int alterarElemento(List *list, char *identificador, char *valorNovo)
 		
 }
 
-ListNode* procuraElemento(List *list, char *identificador)
+ListNode* procuraElementoLista(List *list, char *identificador)
 {
 	if(!list || !identificador)
 		return NULL;
