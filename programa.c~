@@ -21,7 +21,7 @@ int main()
 	{
 		e = 8.88;
 		f = 9.99;
-	}else{f=6;}
+	}else{}
 
 	if(g==d)
 	{

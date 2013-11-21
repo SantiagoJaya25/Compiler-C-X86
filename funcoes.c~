@@ -59,6 +59,8 @@ void atribuir(char *variavel, char *numero)
 	alterarElementoLista(&list, variavel, novoValor);
 
 	ArquivoStart = fopen("start.asm","a");
+	//LabelSE = fopen("labelSE.asm","a");
+	//LabelSENAO = fopen("labelSENAO.asm","a");
 	
 	if(corpoIf){
 		if(!ifs){
@@ -78,6 +80,8 @@ void atribuir(char *variavel, char *numero)
 		fprintf(ArquivoStart,"\tmov [%s], %s\n",variavel,numero);
 		
 	fclose(ArquivoStart);
+	//fclose(LabelSE);
+	//fclose(LabelSENAO);
 }
 
 void inicializarTermoIF(TermoIF *termoIF)
@@ -117,6 +121,8 @@ void popularTermosIf(TermoIF *termoIF, char *identificador, char *tipoTermo)
 void funcaoIF(TermoIF *termoIF)
 {
 	ArquivoStart = fopen("start.asm","a");
+	//LabelSE = fopen("labelSE.asm", "a");
+	//LabelSENAO = fopen("labelSENAO.asm", "a");
 
 	fprintf(ArquivoStart,"\n\n\tCMP ");
 
@@ -144,4 +150,6 @@ void funcaoIF(TermoIF *termoIF)
 	inicializarTermoIF(termoIF);
 
 	fclose(ArquivoStart);
+	//fclose(LabelSE);
+	//fclose(LabelSENAO);
 }
