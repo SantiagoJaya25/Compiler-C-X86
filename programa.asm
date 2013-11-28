@@ -26,10 +26,12 @@ _start:
 	Condicao0:
 		mov [c], 9
 		mov [d], 12
+		JMP fimCondicao1
 
 	Condicao1:
 		mov [d], 11
 		mov [c], 10
+		fimCondicao1:
 
 	CMP [e], [f]
 	JE Condicao2
@@ -38,9 +40,11 @@ _start:
 	Condicao2:
 		mov [e], 8.88
 		mov [f], 9.99
+		JMP fimCondicao3
 
 	Condicao3:
 		mov [f], 6
+		fimCondicao3:
 
 	CMP [g], [d]
 	JE Condicao4
@@ -49,3 +53,5 @@ _start:
 	Condicao4:
 		mov [e], 8.88
 		mov [f], 9.99
+		JMP fimCondicao5
+		fimCondicao5:

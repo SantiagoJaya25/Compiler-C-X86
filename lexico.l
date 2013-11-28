@@ -8,6 +8,8 @@ char token[100], variavel[100], tipoTermo[100];
 int atribuicao=0, parametroIf=0, estaNoIf=0, corpoIf=0, estaNoElse=0, corpoElse=0;
 TermoIF termoIF;
 Stack stack;
+extern FILE *ArquivoStart;
+extern int condicao;
 %}
 
 branco [ \t\n]+
@@ -168,9 +170,23 @@ diferente "!="
 }
 
 {chaveDireita} {
-	estaNoIf=0;
-	corpoIf=0;
-	corpoElse=0;
+	if(estaNoIf == 1)
+	{
+		estaNoIf=0;
+		corpoIf=0;
+		ArquivoStart = fopen("start.asm", "a");
+		fprintf(ArquivoStart, "\n\t\tJMP fimCondicao%d", condicao - 1);
+		fclose(ArquivoStart);
+	}
+	else if(estaNoElse == 1)
+	{
+		estaNoElse == 0;
+		corpoElse=0;
+		ArquivoStart = fopen("start.asm", "a");
+		fprintf(ArquivoStart, "\n\t\tfimCondicao%d:", condicao - 1);
+		fclose(ArquivoStart);
+	}
+	else{}
 
 	return(CHAVE_DIREITA);
 }

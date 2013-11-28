@@ -97,7 +97,7 @@ void popularTermosIf(TermoIF *termoIF, char *identificador, char *tipoTermo)
 			printf("ERROR: Variável %s não declarada\n",identificador);
 	}
 
-	char *elemento = (char*)malloc(strlen(identificador));
+	char *elemento = (char*)malloc(strlen(identificador + 1));
 	strcpy(elemento, identificador);
 
 	if(strcmp(termoIF->termo1, "")==0)
