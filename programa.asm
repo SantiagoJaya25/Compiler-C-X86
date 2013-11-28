@@ -30,7 +30,6 @@ _start:
 	Condicao1:
 		mov [d], 11
 		mov [c], 10
-		
 
 	CMP [e], [f]
 	JE Condicao2
