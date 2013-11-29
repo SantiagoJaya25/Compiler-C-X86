@@ -20,8 +20,8 @@ _start:
 
 
 	CMP [a], [b]
-	JE Condicao0
-	JNE Condicao1
+	JLE Condicao0
+	JNLE Condicao1
 
 	Condicao0:
 		mov [c], 9

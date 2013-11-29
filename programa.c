@@ -6,7 +6,7 @@ int main()
 
 	c=1;
 	
-	if(a==b)
+	if(a<=b)
 	{
 		c=9;
 		d=12;

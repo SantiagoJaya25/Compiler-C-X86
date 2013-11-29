@@ -130,7 +130,7 @@ void funcaoIF(TermoIF *termoIF)
 	else
 		fprintf(ArquivoStart,"%s\n",termoIF->termo2);
 
-	if(strcmp(termoIF->operador, "==")==0)
+	if(strcmp(termoIF->operador, "==") == 0)
 	{
 		fprintf(ArquivoStart,"\tJE Condicao%d\n",condicao);
 		condicao++;
@@ -140,6 +140,17 @@ void funcaoIF(TermoIF *termoIF)
 		condicao++;
 		elses=0;
 	}
+	else if(strcmp(termoIF->operador, "<=") == 0)
+	{
+		fprintf(ArquivoStart, "\tJLE Condicao%d\n", condicao);
+		condicao++;
+		ifs = 0;
+
+		fprintf(ArquivoStart, "\tJNLE Condicao%d", condicao);
+		condicao++;
+		elses = 0;
+	}
+	else{}
 
 	inicializarTermoIF(termoIF);
 
