@@ -5,27 +5,14 @@ int main()
 	int testeVariavel;
 
 	c=1;
-	
-	if(a<=b)
+
+	if(a==b)
 	{
-		c=9;
-		d=12;
-	}
-	else
-	{
-		d=11;
-		c=10;
+		a=7;
 	}
 
-	if(e==f)
+	while(a==b)
 	{
-		e = 8.88;
-		f = 9.99;
-	}else{f=6;}
-
-	if(g==d)
-	{
-		e = 8.88;
-		f = 9.99;
+		b=c;
 	}
 }

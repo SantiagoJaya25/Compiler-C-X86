@@ -12,10 +12,10 @@ FILE *LabelSE;
 FILE *LabelSENAO;
 extern int corpoIf;
 extern int corpoElse;
-int condicao=0;
+extern int parametroIf;
+extern int parametroWhile;
+int condicao=0, enquanto=0;
 int ifs=0, elses=0;
-
-//ifs = (int*) calloc(1000, sizeof(int));
 
 void criarArquivoBSS()
 {
@@ -80,16 +80,16 @@ void atribuir(char *variavel, char *numero)
 	fclose(ArquivoStart);
 }
 
-void inicializarTermoIF(TermoIF *termoIF)
+void inicializarParametros(Parametros *parametros)
 {
-	strcpy(termoIF->termo1, "");
-	strcpy(termoIF->termo2, "");
-	strcpy(termoIF->tipoTermo1, "");
-	strcpy(termoIF->tipoTermo2, "");
-	strcpy(termoIF->operador, "");
+	strcpy(parametros->termo1, "");
+	strcpy(parametros->termo2, "");
+	strcpy(parametros->tipoTermo1, "");
+	strcpy(parametros->tipoTermo2, "");
+	strcpy(parametros->operador, "");
 }
 
-void popularTermosIf(TermoIF *termoIF, char *identificador, char *tipoTermo)
+void popularParametros(Parametros *parametros, char *identificador, char *tipoTermo)
 {
 	if(strcmp(tipoTermo, "variavel")==0)
 	{
@@ -100,37 +100,43 @@ void popularTermosIf(TermoIF *termoIF, char *identificador, char *tipoTermo)
 	char *elemento = (char*)malloc(strlen(identificador + 1));
 	strcpy(elemento, identificador);
 
-	if(strcmp(termoIF->termo1, "")==0)
+	if(strcmp(parametros->termo1, "")==0)
 	{
-		strcpy(termoIF->tipoTermo1, tipoTermo);
-		strcpy(termoIF->termo1, elemento);
+		strcpy(parametros->tipoTermo1, tipoTermo);
+		strcpy(parametros->termo1, elemento);
 	}
-	else if(strcmp(termoIF->termo2, "")==0)
+	else if(strcmp(parametros->termo2, "")==0)
 	{
-		strcpy(termoIF->tipoTermo2, tipoTermo);
-		strcpy(termoIF->termo2, elemento);
+		strcpy(parametros->tipoTermo2, tipoTermo);
+		strcpy(parametros->termo2, elemento);
 
-		funcaoIF(termoIF);
+		if(parametroIf)
+			escreverComparacao(parametros);
+		else if(parametroWhile)
+		{
+			funcaoWhile(parametros);
+			escreverComparacao(parametros);
+		}
 	}
 }
 
-void funcaoIF(TermoIF *termoIF)
+void escreverComparacao(Parametros *parametros)
 {
 	ArquivoStart = fopen("start.asm","a");
 
 	fprintf(ArquivoStart,"\n\n\tCMP ");
 
-	if(strcmp(termoIF->tipoTermo1, "variavel")==0)
-		fprintf(ArquivoStart,"[%s], ",termoIF->termo1);
+	if(strcmp(parametros->tipoTermo1, "variavel")==0)
+		fprintf(ArquivoStart,"[%s], ",parametros->termo1);
 	else
-		fprintf(ArquivoStart,"%s, ",termoIF->termo1);
+		fprintf(ArquivoStart,"%s, ",parametros->termo1);
 
-	if(strcmp(termoIF->tipoTermo2, "variavel")==0)
-		fprintf(ArquivoStart,"[%s]\n",termoIF->termo2);
+	if(strcmp(parametros->tipoTermo2, "variavel")==0)
+		fprintf(ArquivoStart,"[%s]\n",parametros->termo2);
 	else
-		fprintf(ArquivoStart,"%s\n",termoIF->termo2);
+		fprintf(ArquivoStart,"%s\n",parametros->termo2);
 
-	if(strcmp(termoIF->operador, "==") == 0)
+	if(strcmp(parametros->operador, "==") == 0)
 	{
 		fprintf(ArquivoStart,"\tJE Condicao%d\n",condicao);
 		condicao++;
@@ -140,7 +146,7 @@ void funcaoIF(TermoIF *termoIF)
 		condicao++;
 		elses=0;
 	}
-	else if(strcmp(termoIF->operador, "<=") == 0)
+	else if(strcmp(parametros->operador, "<=") == 0)
 	{
 		fprintf(ArquivoStart, "\tJLE Condicao%d\n", condicao);
 		condicao++;
@@ -152,7 +158,17 @@ void funcaoIF(TermoIF *termoIF)
 	}
 	else{}
 
-	inicializarTermoIF(termoIF);
+	inicializarParametros(parametros);
+
+	fclose(ArquivoStart);
+}
+
+void funcaoWhile(Parametros *parametros)
+{
+	ArquivoStart = fopen("start.asm","a");
+	fprintf(ArquivoStart,"\n\n\tEnquanto%d:",enquanto);
+
+	inicializarParametros(parametros);
 
 	fclose(ArquivoStart);
 }

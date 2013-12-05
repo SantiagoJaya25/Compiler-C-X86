@@ -5,8 +5,9 @@
 #include <string.h>
 #include <stdlib.h>
 char token[100], variavel[100], tipoTermo[100];
-int atribuicao=0, parametroIf=0, estaNoIf=0, corpoIf=0, estaNoElse=0, corpoElse=0;
-TermoIF termoIF;
+int atribuicao=0, estaNoIf=0, corpoIf=0, estaNoElse=0, corpoElse=0;
+int parametroIf=0,  parametroWhile=0;
+Parametros parametros;
 Stack stack;
 extern FILE *ArquivoStart;
 extern int condicao;
@@ -35,6 +36,7 @@ menorIgual "<="
 maiorQue ">"
 menorQue "<"
 diferente "!="
+enquanto "while"
 
 %%
 
@@ -51,10 +53,10 @@ diferente "!="
 		atribuicao=0;
 	}
 
-	if(parametroIf)
+	if(parametroIf || parametroWhile)
 	{
 		strcpy(tipoTermo, "numero");
-		popularTermosIf(&termoIF, yytext, tipoTermo);
+		popularParametros(&parametros, yytext, tipoTermo);
 	}
 
 	return(NUMERO_INTEIRO);
@@ -67,10 +69,10 @@ diferente "!="
 		atribuicao=0;
 	}
 
-	if(parametroIf)
+	if(parametroIf || parametroWhile)
 	{
 		strcpy(tipoTermo, "numero");
-		popularTermosIf(&termoIF, yytext, tipoTermo);
+		popularParametros(&parametros, yytext, tipoTermo);
 	}
 
 	return(NUMERO_REAL);
@@ -87,7 +89,11 @@ diferente "!="
 	return(ELSE);
 }
 
-"while" return(WHILE);
+{enquanto} {
+	parametroWhile=1;
+	return(WHILE);
+}
+
 "for" return(FOR);
 
 {inteiro} {
@@ -114,7 +120,10 @@ diferente "!="
 	apagarElementoPilha(&stack);
 
 	if(!stack.top)
+	{
+		parametroWhile=0;
 		parametroIf=0;
+	}
 
 	return(PARENTESES_DIREITA);
 }
@@ -125,32 +134,32 @@ diferente "!="
 }
 
 {comparacao} {
-	strcpy(termoIF.operador,yytext);
+	strcpy(parametros.operador,yytext);
 	return(COMPARACAO);
 }
 
 {maiorIgual} {
-	strcpy(termoIF.operador,yytext);
+	strcpy(parametros.operador,yytext);
 	return(MAIOR_IGUAL);
 }
 
 {menorIgual} {
-	strcpy(termoIF.operador,yytext);
+	strcpy(parametros.operador,yytext);
 	return(MENOR_IGUAL);
 }
 
 {maiorQue} {
-	strcpy(termoIF.operador,yytext);
+	strcpy(parametros.operador,yytext);
 	return(MAIOR_QUE);
 }
 
 {menorQue} {
-	strcpy(termoIF.operador,yytext);
+	strcpy(parametros.operador,yytext);
 	return(MENOR_QUE);
 }
 
 {diferente} {
-	strcpy(termoIF.operador,yytext);
+	strcpy(parametros.operador,yytext);
 	return(DIFERENTE);
 }
 
@@ -180,7 +189,7 @@ diferente "!="
 	}
 	else if(estaNoElse == 1)
 	{
-		estaNoElse == 0;
+		estaNoElse=0;
 		corpoElse=0;
 		ArquivoStart = fopen("start.asm", "a");
 		fprintf(ArquivoStart, "\n\t\tfimCondicao%d:", condicao - 1);
@@ -198,6 +207,7 @@ diferente "!="
 	strcpy(tipoTermo, "");
 	atribuicao=0;
 	parametroIf=0;
+	parametroWhile=0;
 
 	return(PONTOVIRGULA);
 }
@@ -211,10 +221,10 @@ diferente "!="
 	if(strcmp(token, "")!=0)
 		declaracaoVariavel(token, yytext);
 	
-	if(parametroIf)
+	if(parametroIf || parametroWhile)
 	{
 		strcpy(tipoTermo, "variavel");
-		popularTermosIf(&termoIF, yytext, tipoTermo);
+		popularParametros(&parametros, yytext, tipoTermo);
 	}
 	
 	return(IDENTIFICADOR);

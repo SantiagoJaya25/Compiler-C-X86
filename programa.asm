@@ -20,38 +20,13 @@ _start:
 
 
 	CMP [a], [b]
-	JLE Condicao0
-	JNLE Condicao1
+	JE Condicao0
+	JNE Condicao1
 
 	Condicao0:
-		mov [c], 9
-		mov [d], 12
+		mov [a], 7
 		JMP fimCondicao1
 
-	Condicao1:
-		mov [d], 11
-		mov [c], 10
-		fimCondicao1:
+	Enquanto0:
 
-	CMP [e], [f]
-	JE Condicao2
-	JNE Condicao3
-
-	Condicao2:
-		mov [e], 8.88
-		mov [f], 9.99
-		JMP fimCondicao3
-
-	Condicao3:
-		mov [f], 6
-		fimCondicao3:
-
-	CMP [g], [d]
-	JE Condicao4
-	JNE Condicao5
-
-	Condicao4:
-		mov [e], 8.88
-		mov [f], 9.99
-		JMP fimCondicao5
-		fimCondicao5:
+	CMP , 
