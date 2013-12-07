@@ -9,12 +9,22 @@ int main()
 	if(a==b)
 	{
 		a=7;
-	}else{
+	}else if(f==g){
 		b=4;
 	}
 
+	else if(a==d)
+	{
+		d=10;
+	}else{
+		f=44;
+	}
+
+
 	while(c==d)
 	{
-		b=c;
+		b=4;
 	}
+
+
 }

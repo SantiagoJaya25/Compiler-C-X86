@@ -11,6 +11,7 @@ Parametros parametros;
 Stack stack;
 extern FILE *ArquivoStart;
 extern int condicao;
+extern int enquanto;
 %}
 
 branco [ \t\n]+
@@ -198,7 +199,15 @@ enquanto "while"
 		fprintf(ArquivoStart, "\n\t\tfimCondicao%d:", condicao - 1);
 		fclose(ArquivoStart);
 	}
-	else{}
+	else if(estaNoWhile == 1)
+	{
+		estaNoWhile=0;
+		corpoWhile=0;
+		ArquivoStart = fopen("start.asm", "a");
+		fprintf(ArquivoStart, "\n\tJMP Enquanto%d", enquanto);
+		fprintf(ArquivoStart,"\n\n\tCondicao%d:",condicao-1);
+		fclose(ArquivoStart);
+	}
 
 	return(CHAVE_DIREITA);
 }
@@ -220,7 +229,7 @@ enquanto "while"
 
 {identificador} {
 	strcpy(variavel,yytext);
-	
+
 	if(strcmp(token, "")!=0)
 		declaracaoVariavel(token, yytext);
 	
@@ -229,6 +238,7 @@ enquanto "while"
 		strcpy(tipoTermo, "variavel");
 		popularParametros(&parametros, yytext, tipoTermo);
 	}
+
 	
 	return(IDENTIFICADOR);
 }

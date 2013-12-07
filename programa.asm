@@ -12,12 +12,12 @@ section .bss
 section .text
 	global _start
 _start:
+
 	mov [a], 5
 	mov [b], 6
 	mov [g], 1.4
 	mov [h], 2.5
 	mov [c], 1
-
 
 	CMP [a], [b]
 	JE Condicao0
@@ -27,12 +27,34 @@ _start:
 		mov [a], 7
 		JMP fimCondicao1
 
-	Condicao1:
+	CMP [f], [g]
+	JE Condicao2
+	JNE Condicao3
+
+	Condicao2:
 		mov [b], 4
-		fimCondicao1:
+		JMP fimCondicao3
+
+	CMP [a], [d]
+	JE Condicao4
+	JNE Condicao5
+
+	Condicao4:
+		mov [d], 10
+		JMP fimCondicao5
+
+	Condicao5:
+		mov [f], 44
+		fimCondicao5:
 
 	Enquanto0:
 
 	CMP [c], [d]
-	JE Condicao2
-	JNE Condicao3
+	JE Condicao6
+	JNE Condicao7
+
+	Condicao6:
+	mov [b], 4
+	JMP Enquanto0
+
+	Condicao7:

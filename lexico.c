@@ -516,7 +516,8 @@ Parametros parametros;
 Stack stack;
 extern FILE *ArquivoStart;
 extern int condicao;
-#line 520 "lex.yy.c"
+extern int enquanto;
+#line 521 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -703,10 +704,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 41 "lexico.l"
+#line 42 "lexico.l"
 
 
-#line 710 "lex.yy.c"
+#line 711 "lex.yy.c"
 
 	if ( !(yy_init) )
 		{
@@ -792,12 +793,12 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 43 "lexico.l"
+#line 44 "lexico.l"
 { /* Desconsiderar espaços em branco */ }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 44 "lexico.l"
+#line 45 "lexico.l"
 {
 	criarArquivoStart();
 
@@ -806,7 +807,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 49 "lexico.l"
+#line 50 "lexico.l"
 {
 	if(atribuicao)
 	{
@@ -825,7 +826,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 65 "lexico.l"
+#line 66 "lexico.l"
 {
 	if(atribuicao)
 	{
@@ -844,7 +845,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 81 "lexico.l"
+#line 82 "lexico.l"
 {
 	parametroIf=1;
 	estaNoIf=1;
@@ -853,7 +854,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 87 "lexico.l"
+#line 88 "lexico.l"
 {
 	estaNoElse=1;
 	return(ELSE);
@@ -861,7 +862,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 92 "lexico.l"
+#line 93 "lexico.l"
 {
 	estaNoWhile = 1;
 	parametroWhile=1;
@@ -870,12 +871,12 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 98 "lexico.l"
+#line 99 "lexico.l"
 return(FOR);
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 100 "lexico.l"
+#line 101 "lexico.l"
 {
 	strcpy(token, yytext);
 	return(INT);
@@ -883,7 +884,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 105 "lexico.l"
+#line 106 "lexico.l"
 {
 	strcpy(token, yytext);
 	return(FLOAT);
@@ -891,27 +892,27 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 110 "lexico.l"
+#line 111 "lexico.l"
 return(SOMA);
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 111 "lexico.l"
+#line 112 "lexico.l"
 return(SUBTRACAO);
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 112 "lexico.l"
+#line 113 "lexico.l"
 return(MULTIPLICACAO);
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 113 "lexico.l"
+#line 114 "lexico.l"
 return(DIVISAO);
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 115 "lexico.l"
+#line 116 "lexico.l"
 {
 	inserirElementoPilha(&stack, '(');
 	return(PARENTESES_ESQUERDA);
@@ -919,7 +920,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 120 "lexico.l"
+#line 121 "lexico.l"
 {
 	apagarElementoPilha(&stack);
 
@@ -934,7 +935,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 132 "lexico.l"
+#line 133 "lexico.l"
 {
 	atribuicao=1;
 	return(RECEBE);
@@ -942,7 +943,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 137 "lexico.l"
+#line 138 "lexico.l"
 {
 	strcpy(parametros.operador,yytext);
 	return(COMPARACAO);
@@ -950,7 +951,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 142 "lexico.l"
+#line 143 "lexico.l"
 {
 	strcpy(parametros.operador,yytext);
 	return(MAIOR_IGUAL);
@@ -958,7 +959,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 147 "lexico.l"
+#line 148 "lexico.l"
 {
 	strcpy(parametros.operador,yytext);
 	return(MENOR_IGUAL);
@@ -966,7 +967,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 152 "lexico.l"
+#line 153 "lexico.l"
 {
 	strcpy(parametros.operador,yytext);
 	return(MAIOR_QUE);
@@ -974,7 +975,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 157 "lexico.l"
+#line 158 "lexico.l"
 {
 	strcpy(parametros.operador,yytext);
 	return(MENOR_QUE);
@@ -982,7 +983,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 162 "lexico.l"
+#line 163 "lexico.l"
 {
 	strcpy(parametros.operador,yytext);
 	return(DIFERENTE);
@@ -990,27 +991,27 @@ YY_RULE_SETUP
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 167 "lexico.l"
+#line 168 "lexico.l"
 return(E);
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 168 "lexico.l"
+#line 169 "lexico.l"
 return(OU);
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 169 "lexico.l"
+#line 170 "lexico.l"
 return(INCREMENTO);
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 170 "lexico.l"
+#line 171 "lexico.l"
 return(DECREMENTO);
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 172 "lexico.l"
+#line 173 "lexico.l"
 {
 	if(estaNoIf)
 		corpoIf=1;
@@ -1025,7 +1026,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 184 "lexico.l"
+#line 185 "lexico.l"
 {
 	if(estaNoIf == 1)
 	{
@@ -1043,14 +1044,22 @@ YY_RULE_SETUP
 		fprintf(ArquivoStart, "\n\t\tfimCondicao%d:", condicao - 1);
 		fclose(ArquivoStart);
 	}
-	else{}
+	else if(estaNoWhile == 1)
+	{
+		estaNoWhile=0;
+		corpoWhile=0;
+		ArquivoStart = fopen("start.asm", "a");
+		fprintf(ArquivoStart, "\n\tJMP Enquanto%d", enquanto);
+		fprintf(ArquivoStart,"\n\n\tCondicao%d:",condicao-1);
+		fclose(ArquivoStart);
+	}
 
 	return(CHAVE_DIREITA);
 }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 206 "lexico.l"
+#line 215 "lexico.l"
 {
 	/* Reinicando todas as variáveis */
 	strcpy(token, "");
@@ -1065,20 +1074,20 @@ YY_RULE_SETUP
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 218 "lexico.l"
+#line 227 "lexico.l"
 return(VIRGULA);
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 219 "lexico.l"
+#line 228 "lexico.l"
 return(ASPAS);
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 221 "lexico.l"
+#line 230 "lexico.l"
 {
 	strcpy(variavel,yytext);
-	
+
 	if(strcmp(token, "")!=0)
 		declaracaoVariavel(token, yytext);
 	
@@ -1087,16 +1096,17 @@ YY_RULE_SETUP
 		strcpy(tipoTermo, "variavel");
 		popularParametros(&parametros, yytext, tipoTermo);
 	}
+
 	
 	return(IDENTIFICADOR);
 }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 236 "lexico.l"
+#line 246 "lexico.l"
 ECHO;
 	YY_BREAK
-#line 1100 "lex.yy.c"
+#line 1110 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2094,7 +2104,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 236 "lexico.l"
+#line 246 "lexico.l"
 
 
 

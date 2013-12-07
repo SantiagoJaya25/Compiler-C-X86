@@ -12,6 +12,7 @@ FILE *LabelSE;
 FILE *LabelSENAO;
 extern int corpoIf;
 extern int corpoElse;
+extern int corpoWhile;
 extern int parametroIf;
 extern int parametroWhile;
 int condicao=0, enquanto=0;
@@ -72,8 +73,12 @@ void atribuir(char *variavel, char *numero)
 		}
 		fprintf(ArquivoStart,"\n\t\tmov [%s], %s",variavel,numero);
 	}
-	else
-		fprintf(ArquivoStart,"\tmov [%s], %s\n",variavel,numero);
+	else if(corpoWhile){
+		fprintf(ArquivoStart,"\n\n\tCondicao%d:",condicao-2);
+		fprintf(ArquivoStart,"\n\tmov [%s], %s",variavel,numero);
+	}
+	else 
+		fprintf(ArquivoStart,"\n\tmov [%s], %s",variavel,numero);
 		
 	fclose(ArquivoStart);
 }
@@ -109,9 +114,7 @@ void popularParametros(Parametros *parametros, char *identificador, char *tipoTe
 		strcpy(parametros->termo2, elemento);
 
 		if(parametroIf){
-			printf("temo 1 if: %s \n",parametros->termo1);
 			escreverComparacao(parametros);
-			printf("AQUI IF\n");
 		}
 		else if(parametroWhile)
 		{
