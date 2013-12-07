@@ -115,7 +115,7 @@ void popularParametros(Parametros *parametros, char *identificador, char *tipoTe
 		}
 		else if(parametroWhile)
 		{
-			funcaoWhile(parametros);
+			funcaoWhile(Parametros *parametros);
 			escreverComparacao(parametros);
 		}
 	}

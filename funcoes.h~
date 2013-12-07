@@ -20,6 +20,5 @@ extern void inicializarParametros(Parametros *parametros);
 extern void popularParametros(Parametros *parametros, char *identificador, char *tipoTermo);
 extern void funcaoIF(Parametros *Pprametros);
 extern void funcaoWhile(Parametros *Pprametros);
-extern void escreverComparacao(Parametros *parametros);
 
 #endif

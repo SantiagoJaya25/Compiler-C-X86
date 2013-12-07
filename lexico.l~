@@ -5,7 +5,7 @@
 #include <string.h>
 #include <stdlib.h>
 char token[100], variavel[100], tipoTermo[100];
-int atribuicao=0, estaNoIf=0, corpoIf=0, estaNoElse=0, corpoElse=0, corpoWhile = 0, estaNoWhile=0;
+int atribuicao=0, estaNoIf=0, corpoIf=0, estaNoElse=0, corpoElse=0, corpoWhile = 0; estaNoWhile=0;
 int parametroIf=0,  parametroWhile=0;
 Parametros parametros;
 Stack stack;
