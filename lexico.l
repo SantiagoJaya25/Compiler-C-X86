@@ -1,11 +1,12 @@
 %{
 #include "sintatico.h"
+#include "stdlib.h"
 #include "funcoes.h"
 #include "stack.h"
 #include <string.h>
 #include <stdlib.h>
 char token[100], variavel[100], tipoTermo[100];
-int atribuicao=0, estaNoIf=0, corpoIf=0, estaNoElse=0, corpoElse=0, corpoWhile = 0, estaNoWhile=0;
+int atribuicao=0, estaNoIf=0, corpoIf=0, estaNoElse=0, corpoElse=0, corpoWhile = 0, estaNoWhile=0, fimArquivo = 0;
 int parametroIf=0,  parametroWhile=0;
 Parametros parametros;
 Stack stack;
@@ -178,6 +179,8 @@ enquanto "while"
 		corpoElse=1;
 	if(estaNoWhile)
 		corpoWhile = 1;
+	
+	fimArquivo++;
 
 	return(CHAVE_ESQUERDA);
 }
@@ -207,6 +210,11 @@ enquanto "while"
 		fprintf(ArquivoStart, "\n\tJMP Enquanto%d", enquanto);
 		fprintf(ArquivoStart,"\n\n\tCondicao%d:",condicao-1);
 		fclose(ArquivoStart);
+	}
+	fimArquivo--;
+	if(!fimArquivo)
+	{
+		exit(0);
 	}
 
 	return(CHAVE_DIREITA);

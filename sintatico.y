@@ -16,6 +16,7 @@ extern Stack stack;
 %token IF ELSE
 %token FOR WHILE
 %token PONTOVIRGULA VIRGULA ASPAS
+%token FIMARQUIVO
 %left SOMA SUBTRACAO
 %left MULTIPLICACAO DIVISAO
 %left COMPARACAO MAIOR_IGUAL MENOR_IGUAL MAIOR_QUE MENOR_QUE DIFERENTE
@@ -30,6 +31,7 @@ extern Stack stack;
 
 Entrada:
    	/* Empty */
+   	| Entrada fimArquivo
    	| Entrada CHAVE_ESQUERDA Entrada CHAVE_DIREITA
    	| Entrada if
    	| Entrada while
@@ -75,13 +77,13 @@ expressao:
    ;
    
 while:
-	WHILE PARENTESES_ESQUERDA condicao PARENTESES_DIREITA { printf("Isso é um while\n"); }
+	WHILE PARENTESES_ESQUERDA condicao PARENTESES_DIREITA
 	;
 	
 for:
-	FOR PARENTESES_ESQUERDA PONTOVIRGULA PONTOVIRGULA PARENTESES_DIREITA { printf("Isso é um for\n"); }
-	| FOR PARENTESES_ESQUERDA condicao PONTOVIRGULA condicao PONTOVIRGULA condicao PARENTESES_DIREITA { printf("Isso é um for\n"); }
-	| FOR PARENTESES_ESQUERDA variavelDeclarada PONTOVIRGULA condicao PONTOVIRGULA condicao PARENTESES_DIREITA { printf("Isso é um for\n"); }
+	FOR PARENTESES_ESQUERDA PONTOVIRGULA PONTOVIRGULA PARENTESES_DIREITA
+	| FOR PARENTESES_ESQUERDA condicao PONTOVIRGULA condicao PONTOVIRGULA condicao PARENTESES_DIREITA
+	| FOR PARENTESES_ESQUERDA variavelDeclarada PONTOVIRGULA condicao PONTOVIRGULA condicao PARENTESES_DIREITA
 	;
 	
 instrucao:
@@ -99,6 +101,10 @@ variavelDeclarada:
 	| IDENTIFICADOR RECEBE expressao
 	| variavelDeclarada VIRGULA	variavelDeclarada
 	;
+
+fimArquivo:
+	FIMARQUIVO {exit(0);}
+
 
 %%
 
