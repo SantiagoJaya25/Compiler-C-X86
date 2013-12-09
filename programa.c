@@ -9,11 +9,11 @@ int main()
 	if(a==b)
 	{
 		a=7;
-	}else if(f==g){
+	}else{
 		b=4;
 	}
 
-	else if(a==d)
+	if(a<d)
 	{
 		d=10;
 	}else{

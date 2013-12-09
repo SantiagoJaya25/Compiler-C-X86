@@ -37,9 +37,9 @@ void declaracaoVariavel(char *token, char *identificador)
 	ArquivoAssembly = fopen("programa.asm","a");
 
 	if(strcmp(token, "int")==0)
-		fprintf(ArquivoAssembly,"\t%s resb %u\n",identificador,sizeof(int));
+		fprintf(ArquivoAssembly,"\t%s resb %lu\n",identificador,sizeof(int));
 	else if(strcmp(token, "float")==0)
-		fprintf(ArquivoAssembly,"\t%s resb %u\n",identificador,sizeof(double));
+		fprintf(ArquivoAssembly,"\t%s resb %lu\n",identificador,sizeof(double));
 	
 	char *elemento = (char*)malloc(strlen(identificador));
 	strcpy(elemento, identificador);
@@ -160,7 +160,47 @@ void escreverComparacao(Parametros *parametros)
 		condicao++;
 		elses = 0;
 	}
-	else{}
+	else if(strcmp(parametros->operador, ">=") == 0)
+	{
+		fprintf(ArquivoStart, "\tJGE Condicao%d\n", condicao);
+		condicao++;
+		ifs = 0;
+
+		fprintf(ArquivoStart, "\tJNGE Condicao%d", condicao);
+		condicao++;
+		elses = 0;
+	}
+	else if(strcmp(parametros->operador, "<") == 0)
+	{
+		fprintf(ArquivoStart, "\tJL Condicao%d\n", condicao);
+		condicao++;
+		ifs = 0;
+
+		fprintf(ArquivoStart, "\tJNL Condicao%d", condicao);
+		condicao++;
+		elses = 0;
+	}
+	else if(strcmp(parametros->operador, ">") == 0)
+	{
+		fprintf(ArquivoStart, "\tJG Condicao%d\n", condicao);
+		condicao++;
+		ifs = 0;
+
+		fprintf(ArquivoStart, "\tJNG Condicao%d", condicao);
+		condicao++;
+		elses = 0;
+	}
+	else if(strcmp(parametros->operador, "!=") == 0)
+	{
+		fprintf(ArquivoStart, "\tJNE Condicao%d\n", condicao);
+		condicao++;
+		ifs = 0;
+
+		fprintf(ArquivoStart, "\tJE Condicao%d", condicao);
+		condicao++;
+		elses = 0;
+	}
+
 
 	inicializarParametros(parametros);
 
